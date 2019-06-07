@@ -9,12 +9,12 @@ public class PartyModel {
 	private String ptyNameTh;
 	private String ptyAbbrTh;
 
-	public String getPytId() {
+	public String getPtyId() {
 		return ptyId;
 	}
 
-	public void setPytId(String pytId) {
-		this.ptyId = pytId;
+	public void setPtyId(String ptyId) {
+		this.ptyId = ptyId;
 	}
 
 	public String getPtyName() {
