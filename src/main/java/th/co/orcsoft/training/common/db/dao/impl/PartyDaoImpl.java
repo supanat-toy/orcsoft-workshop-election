@@ -14,7 +14,7 @@ public class PartyDaoImpl extends AbsCorDao implements PartyDao {
 
 	@Override
 	public List<PartyModel> getAllParty() {
-		String sql = "SELECT ptyID , ptyName From party";
+		String sql = "SELECT * From party";
 		List<PartyModel> list = namedParameterJdbcTemplate.query(sql,
 				new BeanPropertyRowMapper<PartyModel>(PartyModel.class));
 		return list;
