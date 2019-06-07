@@ -16,6 +16,4 @@ public class SpringBootsDemo {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootsDemo.class, args);
 	}
-	//Test By Ice    
-	//Test By Ant
 }
