@@ -5,7 +5,7 @@ public class ProvinceModel {
 	private int prvID;
 	private int rgnID;
 	private String prvName;
-	private int nameDist;
+	private int numDist;
 	private String prvNameTh;
 	
 	public int getPrvID() {
@@ -26,11 +26,11 @@ public class ProvinceModel {
 	public void setPrvName(String prvName) {
 		this.prvName = prvName;
 	}
-	public int getNameDist() {
-		return nameDist;
+	public int getNumDist() {
+		return numDist;
 	}
-	public void setNameDist(int nameDist) {
-		this.nameDist = nameDist;
+	public void setNumDist(int numDist) {
+		this.numDist = numDist;
 	}
 	public String getPrvNameTh() {
 		return prvNameTh;
