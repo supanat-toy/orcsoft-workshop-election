@@ -18,9 +18,7 @@ public class SpringBootsDemo {
 	}
 
 	//Test By Ice  
-	//Test By Gaem
-
-	//Test By Ice    
+	//Test By Gaem    
 	//Test By Ant
 
 }
