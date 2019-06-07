@@ -12,7 +12,7 @@ public class SumMhrByRegionModel {
 	public void setRgnID(int rgnID) {
 		this.rgnID = rgnID;
 	}
-	public int getPtyID() {
+	public int getPtyID() { 
 		return ptyID;
 	}
 	public void setPtyID(int ptyID) {

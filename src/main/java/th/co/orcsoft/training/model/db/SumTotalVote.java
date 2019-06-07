@@ -7,7 +7,7 @@ public class SumTotalVote {
 	private int totalVote;
 	
 	public int getPtyID() {
-		return ptyID;
+		return ptyID; 
 	}
 	public void setPtyID(int ptyID) {
 		this.ptyID = ptyID;

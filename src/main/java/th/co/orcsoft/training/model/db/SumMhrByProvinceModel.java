@@ -12,7 +12,7 @@ public class SumMhrByProvinceModel {
 	public void setPrvID(int prvID) {
 		this.prvID = prvID;
 	}
-	public int getPtyID() {
+	public int getPtyID() { 
 		return ptyID;
 	}
 	public void setPtyID(int ptyID) {
