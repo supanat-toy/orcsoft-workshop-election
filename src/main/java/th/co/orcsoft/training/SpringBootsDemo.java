@@ -16,5 +16,6 @@ public class SpringBootsDemo {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootsDemo.class, args);
 	}
-	//Test By Ice    
+	//Test By Ice
+	//kam ไม่มีนม
 }
