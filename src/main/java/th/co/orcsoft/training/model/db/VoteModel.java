@@ -3,158 +3,203 @@ package th.co.orcsoft.training.model.db;
 import java.util.Calendar;
 
 public class VoteModel {
-	private int DistID;
-	private int PrvID;
-	private int DistNum;
-	private int Pty1_ID;
-	private int Pty1Vote;
-	private int Pty2_ID;
-	private int Pty2Vote;
-	private int Pty3_ID;
-	private int Pty3Vote;
-	private float BadVote;
-	private float VoteNo;
-	private boolean AprvFlag;
-	private String AprvBy;
-	private Calendar AprvDTM;
-	private boolean UpdFlag;
-	private String UpdBy;
-	private Calendar UpdDTM;
-	private boolean UpdAprvFlag;
-	private String UpdAprvBy;
-	private Calendar UpdAprvDTM;
-	private int TotalVote;
-	private int TotalValidVote;
+	private int distID;
+	private int prvID;
+	private int distNum;
+	private int pty1_ID;
+	private int pty1Vote;
+	private int pty2_ID;
+	private int pty2Vote;
+	private int pty3_ID;
+	private int pty3Vote;
+	private float badVote;
+	private float voteNo;
+	private boolean aprvFlag;
+	private String aprvBy;
+	private Calendar aprvDTM;
+	private boolean updFlag;
+	private String updBy;
+	private Calendar updDTM;
+	private boolean updAprvFlag;
+	private String updAprvBy;
+	private Calendar updAprvDTM;
+	private int totalVote;
+	private int totalValidVote;
+
 	public int getDistID() {
-		return DistID;
+		return distID;
 	}
+
 	public void setDistID(int distID) {
-		DistID = distID;
+		this.distID = distID;
 	}
+
 	public int getPrvID() {
-		return PrvID;
+		return prvID;
 	}
+
 	public void setPrvID(int prvID) {
-		PrvID = prvID;
+		this.prvID = prvID;
 	}
+
 	public int getDistNum() {
-		return DistNum;
+		return distNum;
 	}
+
 	public void setDistNum(int distNum) {
-		DistNum = distNum;
+		this.distNum = distNum;
 	}
+
 	public int getPty1_ID() {
-		return Pty1_ID;
+		return pty1_ID;
 	}
+
 	public void setPty1_ID(int pty1_ID) {
-		Pty1_ID = pty1_ID;
+		this.pty1_ID = pty1_ID;
 	}
+
 	public int getPty1Vote() {
-		return Pty1Vote;
+		return pty1Vote;
 	}
+
 	public void setPty1Vote(int pty1Vote) {
-		Pty1Vote = pty1Vote;
+		this.pty1Vote = pty1Vote;
 	}
+
 	public int getPty2_ID() {
-		return Pty2_ID;
+		return pty2_ID;
 	}
+
 	public void setPty2_ID(int pty2_ID) {
-		Pty2_ID = pty2_ID;
+		this.pty2_ID = pty2_ID;
 	}
+
 	public int getPty2Vote() {
-		return Pty2Vote;
+		return pty2Vote;
 	}
+
 	public void setPty2Vote(int pty2Vote) {
-		Pty2Vote = pty2Vote;
+		this.pty2Vote = pty2Vote;
 	}
+
 	public int getPty3_ID() {
-		return Pty3_ID;
+		return pty3_ID;
 	}
+
 	public void setPty3_ID(int pty3_ID) {
-		Pty3_ID = pty3_ID;
+		this.pty3_ID = pty3_ID;
 	}
+
 	public int getPty3Vote() {
-		return Pty3Vote;
+		return pty3Vote;
 	}
+
 	public void setPty3Vote(int pty3Vote) {
-		Pty3Vote = pty3Vote;
+		this.pty3Vote = pty3Vote;
 	}
+
 	public float getBadVote() {
-		return BadVote;
+		return badVote;
 	}
+
 	public void setBadVote(float badVote) {
-		BadVote = badVote;
+		this.badVote = badVote;
 	}
+
 	public float getVoteNo() {
-		return VoteNo;
+		return voteNo;
 	}
+
 	public void setVoteNo(float voteNo) {
-		VoteNo = voteNo;
+		this.voteNo = voteNo;
 	}
+
 	public boolean isAprvFlag() {
-		return AprvFlag;
+		return aprvFlag;
 	}
+
 	public void setAprvFlag(boolean aprvFlag) {
-		AprvFlag = aprvFlag;
+		this.aprvFlag = aprvFlag;
 	}
+
 	public String getAprvBy() {
-		return AprvBy;
+		return aprvBy;
 	}
+
 	public void setAprvBy(String aprvBy) {
-		AprvBy = aprvBy;
+		this.aprvBy = aprvBy;
 	}
+
 	public Calendar getAprvDTM() {
-		return AprvDTM;
+		return aprvDTM;
 	}
+
 	public void setAprvDTM(Calendar aprvDTM) {
-		AprvDTM = aprvDTM;
+		this.aprvDTM = aprvDTM;
 	}
+
 	public boolean isUpdFlag() {
-		return UpdFlag;
+		return updFlag;
 	}
+
 	public void setUpdFlag(boolean updFlag) {
-		UpdFlag = updFlag;
+		this.updFlag = updFlag;
 	}
+
 	public String getUpdBy() {
-		return UpdBy;
+		return updBy;
 	}
+
 	public void setUpdBy(String updBy) {
-		UpdBy = updBy;
+		this.updBy = updBy;
 	}
+
 	public Calendar getUpdDTM() {
-		return UpdDTM;
+		return updDTM;
 	}
+
 	public void setUpdDTM(Calendar updDTM) {
-		UpdDTM = updDTM;
+		this.updDTM = updDTM;
 	}
+
 	public boolean isUpdAprvFlag() {
-		return UpdAprvFlag;
+		return updAprvFlag;
 	}
+
 	public void setUpdAprvFlag(boolean updAprvFlag) {
-		UpdAprvFlag = updAprvFlag;
+		this.updAprvFlag = updAprvFlag;
 	}
+
 	public String getUpdAprvBy() {
-		return UpdAprvBy;
+		return updAprvBy;
 	}
+
 	public void setUpdAprvBy(String updAprvBy) {
-		UpdAprvBy = updAprvBy;
+		this.updAprvBy = updAprvBy;
 	}
+
 	public Calendar getUpdAprvDTM() {
-		return UpdAprvDTM;
+		return updAprvDTM;
 	}
+
 	public void setUpdAprvDTM(Calendar updAprvDTM) {
-		UpdAprvDTM = updAprvDTM;
+		this.updAprvDTM = updAprvDTM;
 	}
+
 	public int getTotalVote() {
-		return TotalVote;
+		return totalVote;
 	}
+
 	public void setTotalVote(int totalVote) {
-		TotalVote = totalVote;
+		this.totalVote = totalVote;
 	}
+
 	public int getTotalValidVote() {
-		return TotalValidVote;
+		return totalValidVote;
 	}
+
 	public void setTotalValidVote(int totalValidVote) {
-		TotalValidVote = totalValidVote;
+		this.totalValidVote = totalValidVote;
 	}
+
 }

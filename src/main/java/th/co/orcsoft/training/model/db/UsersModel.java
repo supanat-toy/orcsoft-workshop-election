@@ -1,42 +1,50 @@
 package th.co.orcsoft.training.model.db;
 
 public class UsersModel {
-	private int UID;
-	private String Login;
-	private String Pwd;
-	private String Posn;
-	private String Fullname;
-	
-	
-	public int getUID() {
-		return UID;
+	private int uID;
+	private String login;
+	private String pwd;
+	private String posn;
+	private String fullname;
+
+	public int getuID() {
+		return uID;
 	}
-	public void setUID(int uID) {
-		UID = uID;
+
+	public void setuID(int uID) {
+		this.uID = uID;
 	}
+
 	public String getLogin() {
-		return Login;
+		return login;
 	}
+
 	public void setLogin(String login) {
-		Login = login;
+		this.login = login;
 	}
+
 	public String getPwd() {
-		return Pwd;
+		return pwd;
 	}
+
 	public void setPwd(String pwd) {
-		Pwd = pwd;
+		this.pwd = pwd;
 	}
+
 	public String getPosn() {
-		return Posn;
+		return posn;
 	}
+
 	public void setPosn(String posn) {
-		Posn = posn;
+		this.posn = posn;
 	}
+
 	public String getFullname() {
-		return Fullname;
+		return fullname;
 	}
+
 	public void setFullname(String fullname) {
-		Fullname = fullname;
+		this.fullname = fullname;
 	}
 
 }
