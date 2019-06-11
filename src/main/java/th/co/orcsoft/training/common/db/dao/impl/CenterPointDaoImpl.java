@@ -27,11 +27,7 @@ public class CenterPointDaoImpl extends AbsCorDao implements CenterPointDao {
 
 	@Override
 	public void replyRequestedConfirmations(int id, boolean isApproved) {
-//		String sql "UPDATE "
-		String query = "update users set num_points = ? where first_name = ?";
-//	      PreparedStatement preparedStmt = conn.prepareStatement(query);
-//	      preparedStmt.setInt   (1, 6000);
-//	      preparedStmt.setString(2, "Fred");
+
 	}
 
 	@Override
