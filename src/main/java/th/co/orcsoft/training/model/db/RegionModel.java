@@ -2,29 +2,32 @@ package th.co.orcsoft.training.model.db;
 
 public class RegionModel {
 
-	private int RgnID;
-	private String RgnName;
-	private String RgnNameTh;
-	
-	
+	private int rgnID;
+	private String rgnName;
+	private String rgnNameTh;
+
 	public int getRgnID() {
-		return RgnID;
+		return rgnID;
 	}
+
 	public void setRgnID(int rgnID) {
-		RgnID = rgnID;
+		this.rgnID = rgnID;
 	}
-	
+
 	public String getRgnName() {
-		return RgnName;
+		return rgnName;
 	}
+
 	public void setRgnName(String rgnName) {
-		RgnName = rgnName;
+		this.rgnName = rgnName;
 	}
+
 	public String getRgnNameTh() {
-		return RgnNameTh;
+		return rgnNameTh;
 	}
+
 	public void setRgnNameTh(String rgnNameTh) {
-		RgnNameTh = rgnNameTh;
+		this.rgnNameTh = rgnNameTh;
 	}
-	
+
 }
