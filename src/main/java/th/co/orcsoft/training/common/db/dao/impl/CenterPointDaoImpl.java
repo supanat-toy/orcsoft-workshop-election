@@ -21,7 +21,9 @@ public class CenterPointDaoImpl extends AbsCorDao implements CenterPointDao {
 
 	@Override
 	public List<VoteModel> getRequestedModifications() {
-		String sql = "SELECT * FROM VOTE WHERE AprvBy is null";
+		String sql = "SELECT * FROM VOTE WHERE AprvFlag = 'true' "
+				+ "AND UpdFlag = 'true'"
+				+ "AND UpdAprvFlag is null";
 		List<VoteModel> list = namedParameterJdbcTemplate.query(sql, new BeanPropertyRowMapper<VoteModel>(VoteModel.class));
 		return list;
 	}
