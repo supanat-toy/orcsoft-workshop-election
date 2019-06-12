@@ -2,6 +2,8 @@ package th.co.orcsoft.training.common.db.dao.impl;
 import java.util.List;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import th.co.orcsoft.training.common.db.dao.AbsCorDao;
@@ -31,12 +33,24 @@ public class CenterPointDaoImpl extends AbsCorDao implements CenterPointDao {
 	@Override
 	public void replyRequestedConfirmations(int id, boolean isApproved, String updatedBy) {
 		if(isApproved) {
-			String sql = "UPDATE VOTE SET AprvFlag = 'true' , AprvBy = updatedBy , UpdBy is null , UpdFlag is null , UpdAprvFlag is null , UpdAprvBy is null WHERE DistID = id";
-			List<VoteModel> list = namedParameterJdbcTemplate.query(sql, new BeanPropertyRowMapper<VoteModel>(VoteModel.class));
+			String sql = "UPDATE VOTE SET AprvFlag = 'true' , AprvBy = '"+updatedBy+"' WHERE DistID = '"+id+"'";
+			SqlParameterSource namedParameters = new MapSqlParameterSource();
+			int status = namedParameterJdbcTemplate.update(sql, namedParameters); 
+	        if(status != 0){
+	            System.out.println(" data updated for distID "+id);
+	        }else{
+	            System.out.println(" Not data update ");
+	        }
 		}
 		else {
-			String sql = "UPDATE VOTE SET AprvFlag = 'false' , AprvBy is null , UpdBy is null , UpdFlag is null , UpdAprvFlag is null , UpdAprvBy is null WHERE DistID = id";
-			List<VoteModel> list = namedParameterJdbcTemplate.query(sql, new BeanPropertyRowMapper<VoteModel>(VoteModel.class));
+			String sql = "UPDATE VOTE SET AprvFlag = 'false' , AprvBy = '"+updatedBy+"' WHERE DistID = '"+id+"'";
+			SqlParameterSource namedParameters = new MapSqlParameterSource();
+			int status = namedParameterJdbcTemplate.update(sql, namedParameters); 
+	        if(status != 0){
+	            System.out.println(" data updated for distID "+id);
+	        }else{
+	            System.out.println(" Not data update ");
+	        }
 		}
 	}
 
