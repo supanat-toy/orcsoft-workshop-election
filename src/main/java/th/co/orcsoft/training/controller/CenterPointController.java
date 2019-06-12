@@ -38,8 +38,8 @@ public class CenterPointController extends BaseController {
 	@RequestMapping(value = "getRequestedConfirmations", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody AbsResponseModel getRequestedConfirmations(HttpServletRequest request, HttpServletResponse response) {
 		
-		int userId = this.getUserIdByHeader(response);
-		boolean isOfficer = this.isOfficerByHeader(response);
+//		int userId = this.getUserIdByHeader(response);
+//		boolean isOfficer = this.isOfficerByHeader(response);
 		List<VoteModel> requestedConfirmations = centerPointService.getRequestedConfirmations();
 
 		return null;
@@ -48,7 +48,7 @@ public class CenterPointController extends BaseController {
 	@RequestMapping(value = "getRequestedModifications", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody AbsResponseModel getRequestedModifications(HttpServletRequest request, HttpServletResponse response) {
 		
-		int userId = this.getUserIdByHeader(response);
+		//int userId = this.getUserIdByHeader(response);
 		List<VoteModel> requestedModifications = centerPointService.getRequestedModifications();
 		return null;
 	}
@@ -56,9 +56,10 @@ public class CenterPointController extends BaseController {
 	@RequestMapping(value = "replyRequestedConfirmation", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
 	public @ResponseBody AbsResponseModel replyRequestedConfirmation(int districtId, boolean isApproved, HttpServletRequest request, HttpServletResponse response) {
 		
-		int userId = this.getUserIdByHeader(response);
-		UsersModel userProfile = this.authService.getUserProfile(userId);
-		centerPointService.replyRequestedConfirmations(districtId, isApproved, userProfile.getLogin());
+//		int userId = this.getUserIdByHeader(response);
+//		UsersModel userProfile = this.authService.getUserProfile(userId);
+//		centerPointService.replyRequestedConfirmations(districtId, isApproved, userProfile.getLogin());
+		centerPointService.replyRequestedConfirmations(districtId, isApproved, "Ant");
 		return null;
 	}
 	

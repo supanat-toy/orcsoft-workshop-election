@@ -16,7 +16,7 @@ public class CenterPointDaoImpl extends AbsCorDao implements CenterPointDao {
 	
 	@Override
 	public List<VoteModel> getRequestedConfirmations() {
-		String sql = "SELECT * FROM VOTE WHERE AprvFlag is null AND UpdFlag = 'true' AND UpdAprvFlag is null";
+		String sql = "SELECT * FROM Vote WHERE AprvFlag is null AND UpdFlag = 'true' AND UpdAprvFlag is null ";
 		List<VoteModel> list = namedParameterJdbcTemplate.query(sql, new BeanPropertyRowMapper<VoteModel>(VoteModel.class));
 		return list;
 	}
@@ -33,7 +33,7 @@ public class CenterPointDaoImpl extends AbsCorDao implements CenterPointDao {
 	@Override
 	public void replyRequestedConfirmations(int id, boolean isApproved, String updatedBy) {
 		if(isApproved) {
-			String sql = "UPDATE VOTE SET AprvFlag = 'true' , AprvBy = '"+updatedBy+"' WHERE DistID = '"+id+"'";
+			String sql = "UPDATE VOTE SET AprvFlag = 'true' , AprvBy = '"+updatedBy+"' WHERE DistID = "+id+"";
 			SqlParameterSource namedParameters = new MapSqlParameterSource();
 			int status = namedParameterJdbcTemplate.update(sql, namedParameters); 
 	        if(status != 0){
@@ -43,7 +43,7 @@ public class CenterPointDaoImpl extends AbsCorDao implements CenterPointDao {
 	        }
 		}
 		else {
-			String sql = "UPDATE VOTE SET AprvFlag = 'false' , AprvBy = '"+updatedBy+"' WHERE DistID = '"+id+"'";
+			String sql = "UPDATE VOTE SET AprvFlag = 'false' , AprvBy = '"+updatedBy+"' WHERE DistID = "+id+"";
 			SqlParameterSource namedParameters = new MapSqlParameterSource();
 			int status = namedParameterJdbcTemplate.update(sql, namedParameters); 
 	        if(status != 0){
