@@ -17,6 +17,8 @@ import th.co.orcsoft.training.common.db.service.AuthService;
 import th.co.orcsoft.training.common.db.service.CenterPointService;
 import th.co.orcsoft.training.controller.common.BaseController;
 import th.co.orcsoft.training.model.common.AbsResponseModel;
+import th.co.orcsoft.training.model.common.center.response.GetRequestedConfirmations;
+import th.co.orcsoft.training.model.common.center.response.GetRequestedModifications;
 import th.co.orcsoft.training.model.db.UsersModel;
 import th.co.orcsoft.training.model.db.VoteModel;
 
@@ -35,19 +37,20 @@ public class CenterPointController extends BaseController {
 			MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody AbsResponseModel getRequestedConfirmations(HttpServletRequest request,
 			HttpServletResponse response) {
+		GetRequestedConfirmations getRequestedConfirmations = new GetRequestedConfirmations();
+		getRequestedConfirmations.setListRequestCon(centerPointService.getRequestedConfirmations());
 
-		List<VoteModel> requestedConfirmations = centerPointService.getRequestedConfirmations();
-
-		return null;
+		return getRequestedConfirmations;
 	}
 
 	@RequestMapping(value = "getRequestedModifications", produces = {
 			MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody AbsResponseModel getRequestedModifications(HttpServletRequest request,
 			HttpServletResponse response) {
-
-		List<VoteModel> requestedModifications = centerPointService.getRequestedModifications();
-		return null;
+		
+		GetRequestedModifications getRequestedModifications = new GetRequestedModifications();
+		getRequestedModifications.setListRequestModi(centerPointService.getRequestedModifications());
+		return getRequestedModifications;
 	}
 
 	@RequestMapping(value = "replyRequestedConfirmation", produces = {
