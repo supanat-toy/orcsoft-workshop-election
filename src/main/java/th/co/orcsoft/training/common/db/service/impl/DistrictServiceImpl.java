@@ -38,7 +38,9 @@ public class DistrictServiceImpl implements DistrictService {
 
 	@Override
 	public List<VoteModel> getResultRequestModifications() {
-		return districtDao.getResultRequestModifications();
+		List<VoteModel> result = districtDao.getResultRequestModifications(); 
+		System.out.print(result);
+		return result;
 	}
 
 }
