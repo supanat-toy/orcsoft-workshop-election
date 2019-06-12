@@ -27,13 +27,13 @@ public class CenterPointServiceImpl implements CenterPointService {
 	}
 
 	@Override
-	public void replyRequestedConfirmations(int id, boolean isApproved) {
-		centerPointDao.replyRequestedConfirmations(id, isApproved);
+	public void replyRequestedConfirmations(int id, boolean isApproved, String updatedBy) {
+		centerPointDao.replyRequestedConfirmations(id, isApproved, updatedBy);
 	}
 
 	@Override
-	public void replyRequestedModifications(int id, boolean isApproved) {
-		centerPointDao.replyRequestedModifications(id, isApproved);
+	public void replyRequestedModifications(int id, boolean isApproved,String updateBy) {
+		centerPointDao.replyRequestedModifications(id, isApproved,updateBy);
 	}
 
 }

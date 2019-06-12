@@ -21,7 +21,13 @@ import th.co.orcsoft.training.model.common.AbsResponseModel;
 import th.co.orcsoft.training.model.common.dashboard.response.GetAllRegions;
 import th.co.orcsoft.training.model.common.dashboard.response.GetAllNotApprovedDistricts;
 import th.co.orcsoft.training.model.common.dashboard.response.GetAllProvinces;
+import th.co.orcsoft.training.model.common.dashboard.response.GetAllRegions;
+import th.co.orcsoft.training.model.common.dashboard.response.GetElectionPartyDistricts;
+import th.co.orcsoft.training.model.common.dashboard.response.GetElectionPartyRegion;
+import th.co.orcsoft.training.model.common.dashboard.response.GetSummaryElectionPartyDistricts;
 import th.co.orcsoft.training.model.common.party.response.GetAllPartyResponse;
+import th.co.orcsoft.training.model.db.GetElectionPartyDistrictsModel;
+import th.co.orcsoft.training.model.db.GetElectionPartyRegionModel;
 import th.co.orcsoft.training.model.db.ProvinceModel;
 import th.co.orcsoft.training.model.db.RegionModel;
 import th.co.orcsoft.training.model.db.VoteModel;
@@ -58,21 +64,23 @@ public class DashboardController extends BaseController {
 	}
 	
 	@RequestMapping(value = "getElectionPartyDistricts", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
-	public @ResponseBody AbsResponseModel getElectionPartyDistricts(int provinceId, HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody GetElectionPartyDistricts getElectionPartyDistricts(int provinceId, HttpServletRequest request, HttpServletResponse response) {
 		
 		int userId = this.getUserIdByHeader(response);
-		List<Object> electionPartyDistricts = dashboardService.getElectionPartyDistricts(provinceId);
-
-		return null;
+		GetElectionPartyDistricts electionPartyDistricts = new GetElectionPartyDistricts();
+		electionPartyDistricts.setGetElectionPartyDistrictsList(dashboardService.getElectionPartyDistricts(provinceId));
+		
+		return electionPartyDistricts;
 	}
 	
 	@RequestMapping(value = "getElectionPartyRegion", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
-	public @ResponseBody AbsResponseModel getElectionPartyRegion(int regionId, HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody GetElectionPartyRegion getElectionPartyRegion(int regionId, HttpServletRequest request, HttpServletResponse response) {
 		
 		int userId = this.getUserIdByHeader(response);
-		List<Object> electionPartyRegion = dashboardService.getElectionPartyRegion(regionId);
-
-		return null;
+		GetElectionPartyRegion electionPartyRegion = new GetElectionPartyRegion();
+		electionPartyRegion.setGetElectionPartyRegionList(dashboardService.getElectionPartyRegion(regionId));
+		 
+		return electionPartyRegion;
 	}
 	
 	@RequestMapping(value = "getNotApprovedDistrictsByProvince", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
@@ -84,4 +92,14 @@ public class DashboardController extends BaseController {
 		
 		return getAllNotApprovedDistricts;
 	}
+	
+	@RequestMapping(value = "getSummaryElectionPartyDistricts", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
+	public @ResponseBody GetSummaryElectionPartyDistricts getSummaryElectionPartyDistricts(int provinceId, HttpServletRequest request, HttpServletResponse response) {
+		
+		int userId = this.getUserIdByHeader(response);
+		GetSummaryElectionPartyDistricts summaryElectionPartyDistricts = new GetSummaryElectionPartyDistricts();
+		summaryElectionPartyDistricts.setGetSummaryElectionPartyDistricts(dashboardService.getSummaryElectionPartyDistricts(provinceId));	 
+		return summaryElectionPartyDistricts;
+	}
+
 }
