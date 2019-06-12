@@ -19,4 +19,9 @@ public class AuthServiceImpl implements AuthService {
 		return user;
 	}
 
+	@Override
+	public UsersModel getUserProfile(int id) {
+		return authDao.getUserProfile(id);
+	}
+
 }
