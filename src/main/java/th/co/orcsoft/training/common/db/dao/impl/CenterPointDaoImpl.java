@@ -11,23 +11,27 @@ import th.co.orcsoft.training.model.db.VoteModel;
 @Repository
 public class CenterPointDaoImpl extends AbsCorDao implements CenterPointDao {
 
+	
 	@Override
 	public List<VoteModel> getRequestedConfirmations() {
-		String sql = "SELECT * FROM VOTE WHERE AprvBy = null";
+		String sql = "SELECT * FROM VOTE WHERE AprvFlag is null AND UpdFlag = 'true' AND UpdAprvFlag is null";
 		List<VoteModel> list = namedParameterJdbcTemplate.query(sql, new BeanPropertyRowMapper<VoteModel>(VoteModel.class));
 		return list;
 	}
 
 	@Override
 	public List<VoteModel> getRequestedModifications() {
-		String sql = "SELECT * FROM VOTE WHERE AprvBy = null";
+		String sql = "SELECT * FROM VOTE WHERE AprvFlag = 'true' "
+				+ "AND UpdFlag = 'true'"
+				+ "AND UpdAprvFlag is null";
 		List<VoteModel> list = namedParameterJdbcTemplate.query(sql, new BeanPropertyRowMapper<VoteModel>(VoteModel.class));
 		return list;
 	}
 
 	@Override
 	public void replyRequestedConfirmations(int id, boolean isApproved) {
-
+		
+			
 	}
 
 	@Override
