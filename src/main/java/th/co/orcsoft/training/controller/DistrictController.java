@@ -83,8 +83,7 @@ public class DistrictController extends BaseController {
 	
 	@RequestMapping(value = "getResultRequestedModifications", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody AbsResponseModel getResultRequestedModifications(HttpServletRequest request, HttpServletResponse response) {
-		
-		int userId = this.getUserIdByHeader(response);
+
 		
 		GetResultRequestedModiResponse getResultRequestedModifications = new GetResultRequestedModiResponse();
 		getResultRequestedModifications.setVoteList(districtService.getResultRequestModifications());
