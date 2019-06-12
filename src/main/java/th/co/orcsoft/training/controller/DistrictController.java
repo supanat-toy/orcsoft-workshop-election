@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -49,7 +50,7 @@ public class DistrictController extends BaseController {
 	}
 	
 	@RequestMapping(value = "updateElectionDistrict", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
-	public @ResponseBody AbsResponseModel updateElectionDistrict(int prvId, int distNum, int pty1Id, int pty1Vote, int pty2Id, int pty2Vote, int pty3Id, int pty3Vote, double badVote, double voteNo, HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody AbsResponseModel updateElectionDistrict(@RequestBody int prvId, int distNum, int pty1Id, int pty1Vote, int pty2Id, int pty2Vote, int pty3Id, int pty3Vote, double badVote, double voteNo, HttpServletRequest request, HttpServletResponse response) {
 		
 		int userId = this.getUserIdByHeader(response);
 		AuthServiceImpl authServiceImpl = new AuthServiceImpl();
@@ -69,7 +70,7 @@ public class DistrictController extends BaseController {
 	}
 	
 	@RequestMapping(value = "requestToModifiedElectionResult", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
-	public @ResponseBody AbsResponseModel requestToModifiedElectionResult(int districtId, HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody AbsResponseModel requestToModifiedElectionResult(@RequestBody int districtId, HttpServletRequest request, HttpServletResponse response) {
 		
 		int userId = this.getUserIdByHeader(response);
 		AuthService user = new AuthServiceImpl();
