@@ -24,7 +24,7 @@ public class AuthDaoImpl extends AbsCorDao implements AuthDao {
 
 	@Override
 	public UsersModel getUserProfile(int id) {
-		String sql = String.format("SELECT TOP 1 * FROM USERS WHERE UID = %s", id);
+		String sql = String.format("SELECT TOP 1 * FROM USERS WHERE UID = '%s'", id);
 		List<UsersModel> userList = namedParameterJdbcTemplate.query(sql, new BeanPropertyRowMapper<UsersModel>(UsersModel.class));
 
 		if (userList.size() > 0) {
