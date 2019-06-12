@@ -27,10 +27,10 @@ public class DistrictDaoImpl extends AbsCorDao implements DistrictDao {
 
 	@Override
 	public void createElectionDistrict(int prvId, int distNum, int pty1Id, int pty1Vote, int pty2Id, int pty2Vote, int pty3Id,
-			int pty3Vote, double badVote, double voteNo) {
+			int pty3Vote, double badVote, double voteNo, String updBy) {
 		
-		String sql = "INSERT INTO Vote (PrvID, DistNum, Pty1_ID, Pty1Vote, Pty2_ID, Pty2Vote, Pty3_ID, Pty3Vote, BadVote, VoteNo, UpdFlag, UpdBy)";
-		sql += String.format(sql + "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", prvId, distNum, pty1Id, pty1Vote, pty2Id, pty2Vote, pty3Id, pty3Vote, badVote, voteNo, "true", "");
+		String sql = "INSERT INTO Vote (PrvID, DistNum, Pty1_ID, Pty1Vote, Pty2_ID, Pty2Vote, Pty3_ID, Pty3Vote, BadVote, VoteNo, UpdFlag, UpdBy) ";
+		sql += String.format("VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')", prvId, distNum, pty1Id, pty1Vote, pty2Id, pty2Vote, pty3Id, pty3Vote, badVote, voteNo, "true", updBy);
 		
 		RowCountCallbackHandler rcch = new RowCountCallbackHandler();
 		namedParameterJdbcTemplate.query(sql, rcch);

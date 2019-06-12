@@ -21,6 +21,7 @@ import th.co.orcsoft.training.controller.common.BaseController;
 import th.co.orcsoft.training.model.common.AbsResponseModel;
 import th.co.orcsoft.training.model.common.district.response.GetElectionDistricts;
 import th.co.orcsoft.training.model.common.party.response.GetAllPartyResponse;
+import th.co.orcsoft.training.model.db.UsersModel;
 import th.co.orcsoft.training.model.db.VoteModel;
 
 @RestController
@@ -37,10 +38,11 @@ public class DistrictController extends BaseController {
 	@RequestMapping(value = "createElectionDistinct", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
 	public @ResponseBody AbsResponseModel createElectionDistinct(int prvId, int distNum, int pty1Id, int pty1Vote, int pty2Id, int pty2Vote, int pty3Id, int pty3Vote, double badVote, double voteNo, HttpServletRequest request, HttpServletResponse response) {
 		
-		int userId = this.getUserIdByHeader(response);
-		districtService.createElectionDistrict(prvId, distNum, pty1Id, pty1Vote, pty2Id, pty2Vote, pty3Id, pty3Vote, badVote, voteNo);
+//		int userId = this.getUserIdByHeader(response);
+		UsersModel userProfile = authService.getUserProfile(8);
+		districtService.createElectionDistrict(prvId, distNum, pty1Id, pty1Vote, pty2Id, pty2Vote, pty3Id, pty3Vote, badVote, voteNo, userProfile.getLogin());
 
-		return null;
+		return new AbsResponseModel() {};
 	}
 	
 	@RequestMapping(value = "updateElectionDistrict", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
