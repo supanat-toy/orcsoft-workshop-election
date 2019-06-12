@@ -64,12 +64,10 @@ public class DistrictController extends BaseController {
 	@RequestMapping(value = "requestToModifiedElectionResult", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
 	public @ResponseBody AbsResponseModel requestToModifiedElectionResult(int districtId, HttpServletRequest request, HttpServletResponse response) {
 		
-//		int userId = this.getUserIdByHeader(response);
-//		AuthService user = new AuthServiceImpl();
-//		UsersModel userProfile = user.getUserProfile(userId);
-//		String updBy = userProfile.getLogin();
-		
-		String updBy = "ice";
+		int userId = this.getUserIdByHeader(response);
+		AuthService user = new AuthServiceImpl();
+		UsersModel userProfile = user.getUserProfile(userId);
+		String updBy = userProfile.getLogin();
 		
 		districtService.requestToModifiedElectionResult(districtId,updBy);
 
