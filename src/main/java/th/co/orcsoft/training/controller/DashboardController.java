@@ -18,6 +18,8 @@ import th.co.orcsoft.training.common.db.service.DashboardService;
 import th.co.orcsoft.training.common.db.service.PartyService;
 import th.co.orcsoft.training.controller.common.BaseController;
 import th.co.orcsoft.training.model.common.AbsResponseModel;
+import th.co.orcsoft.training.model.common.dashboard.response.GetAllProvinces;
+import th.co.orcsoft.training.model.common.dashboard.response.GetAllRegions;
 import th.co.orcsoft.training.model.common.dashboard.response.GetElectionPartyDistricts;
 import th.co.orcsoft.training.model.common.dashboard.response.GetElectionPartyRegion;
 import th.co.orcsoft.training.model.common.dashboard.response.GetSummaryElectionPartyDistricts;
@@ -61,7 +63,7 @@ public class DashboardController extends BaseController {
 	@RequestMapping(value = "getElectionPartyDistricts", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody GetElectionPartyDistricts getElectionPartyDistricts(int provinceId, HttpServletRequest request, HttpServletResponse response) {
 		
-		String userId = this.getUserIdByHeader(response);
+		int userId = this.getUserIdByHeader(response);
 		GetElectionPartyDistricts electionPartyDistricts = new GetElectionPartyDistricts();
 		electionPartyDistricts.setGetElectionPartyDistrictsList(dashboardService.getElectionPartyDistricts(provinceId));
 		
@@ -71,7 +73,7 @@ public class DashboardController extends BaseController {
 	@RequestMapping(value = "getElectionPartyRegion", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody GetElectionPartyRegion getElectionPartyRegion(int regionId, HttpServletRequest request, HttpServletResponse response) {
 		
-		String userId = this.getUserIdByHeader(response);
+		int userId = this.getUserIdByHeader(response);
 		GetElectionPartyRegion electionPartyRegion = new GetElectionPartyRegion();
 		electionPartyRegion.setGetElectionPartyRegionList(dashboardService.getElectionPartyRegion(regionId));
 		 
@@ -81,7 +83,7 @@ public class DashboardController extends BaseController {
 	@RequestMapping(value = "getSummaryElectionPartyDistricts", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody GetSummaryElectionPartyDistricts getSummaryElectionPartyDistricts(int provinceId, HttpServletRequest request, HttpServletResponse response) {
 		
-		String userId = this.getUserIdByHeader(response);
+		int userId = this.getUserIdByHeader(response);
 		GetSummaryElectionPartyDistricts summaryElectionPartyDistricts = new GetSummaryElectionPartyDistricts();
 		summaryElectionPartyDistricts.setGetSummaryElectionPartyDistricts(dashboardService.getSummaryElectionPartyDistricts(provinceId));	 
 		return summaryElectionPartyDistricts;
