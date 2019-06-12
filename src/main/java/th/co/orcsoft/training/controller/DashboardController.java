@@ -54,7 +54,7 @@ public class DashboardController extends BaseController {
 	@RequestMapping(value = "getElectionPartyDistricts", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody AbsResponseModel getElectionPartyDistricts(int provinceId, HttpServletRequest request, HttpServletResponse response) {
 		
-		String userId = this.getUserIdByHeader(response);
+		int userId = this.getUserIdByHeader(response);
 		List<Object> electionPartyDistricts = dashboardService.getElectionPartyDistricts(provinceId);
 
 		return null;
@@ -63,7 +63,7 @@ public class DashboardController extends BaseController {
 	@RequestMapping(value = "getElectionPartyRegion", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody AbsResponseModel getElectionPartyRegion(int regionId, HttpServletRequest request, HttpServletResponse response) {
 		
-		String userId = this.getUserIdByHeader(response);
+		int userId = this.getUserIdByHeader(response);
 		List<Object> electionPartyRegion = dashboardService.getElectionPartyRegion(regionId);
 
 		return null;
