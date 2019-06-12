@@ -33,14 +33,16 @@ public class DistrictServiceImpl implements DistrictService {
 	}
 
 	@Override
-	public void requestToModifiedElectionResult(int districtId) {
-		// TODO Auto-generated method stub
-		districtDao.requestToModifiedElectionResult(districtId);
+	public void requestToModifiedElectionResult(int districtId,String updBy) {
+		
+		districtDao.requestToModifiedElectionResult(districtId,updBy);
 	}
 
 	@Override
 	public List<VoteModel> getResultRequestModifications() {
-		return districtDao.getResultRequestModifications();
+		List<VoteModel> result = districtDao.getResultRequestModifications(); 
+		System.out.print(result);
+		return result;
 	}
 
 }
