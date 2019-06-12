@@ -1,5 +1,6 @@
 package th.co.orcsoft.training.model.db;
 
+import java.sql.Timestamp;
 import java.util.Calendar;
 
 public class VoteModel {
@@ -14,15 +15,15 @@ public class VoteModel {
 	private int pty3Vote;
 	private float badVote;
 	private float voteNo;
-	private boolean aprvFlag;
+	private Boolean aprvFlag;
 	private String aprvBy;
-	private Calendar aprvDTM;
-	private boolean updFlag;
+	private Timestamp aprvDTM;
+	private Boolean updFlag;
 	private String updBy;
-	private Calendar updDTM;
-	private boolean updAprvFlag;
+	private Timestamp updDTM;
+	private Boolean updAprvFlag;
 	private String updAprvBy;
-	private Calendar updAprvDTM;
+	private Timestamp updAprvDTM;
 	private int totalVote;
 	private int totalValidVote;
 
@@ -114,11 +115,11 @@ public class VoteModel {
 		this.voteNo = voteNo;
 	}
 
-	public boolean isAprvFlag() {
+	public Boolean isAprvFlag() {
 		return aprvFlag;
 	}
 
-	public void setAprvFlag(boolean aprvFlag) {
+	public void setAprvFlag(Boolean aprvFlag) {
 		this.aprvFlag = aprvFlag;
 	}
 
@@ -130,19 +131,19 @@ public class VoteModel {
 		this.aprvBy = aprvBy;
 	}
 
-	public Calendar getAprvDTM() {
+	public Timestamp getAprvDTM() {
 		return aprvDTM;
 	}
 
-	public void setAprvDTM(Calendar aprvDTM) {
+	public void setAprvDTM(Timestamp aprvDTM) {
 		this.aprvDTM = aprvDTM;
 	}
 
-	public boolean isUpdFlag() {
+	public Boolean isUpdFlag() {
 		return updFlag;
 	}
 
-	public void setUpdFlag(boolean updFlag) {
+	public void setUpdFlag(Boolean updFlag) {
 		this.updFlag = updFlag;
 	}
 
@@ -154,19 +155,19 @@ public class VoteModel {
 		this.updBy = updBy;
 	}
 
-	public Calendar getUpdDTM() {
+	public Timestamp getUpdDTM() {
 		return updDTM;
 	}
 
-	public void setUpdDTM(Calendar updDTM) {
+	public void setUpdDTM(Timestamp updDTM) {
 		this.updDTM = updDTM;
 	}
 
-	public boolean isUpdAprvFlag() {
+	public Boolean isUpdAprvFlag() {
 		return updAprvFlag;
 	}
 
-	public void setUpdAprvFlag(boolean updAprvFlag) {
+	public void setUpdAprvFlag(Boolean updAprvFlag) {
 		this.updAprvFlag = updAprvFlag;
 	}
 
@@ -178,11 +179,11 @@ public class VoteModel {
 		this.updAprvBy = updAprvBy;
 	}
 
-	public Calendar getUpdAprvDTM() {
+	public Timestamp getUpdAprvDTM() {
 		return updAprvDTM;
 	}
 
-	public void setUpdAprvDTM(Calendar updAprvDTM) {
+	public void setUpdAprvDTM(Timestamp updAprvDTM) {
 		this.updAprvDTM = updAprvDTM;
 	}
 
