@@ -28,8 +28,8 @@ public class DistrictServiceImpl implements DistrictService {
 
 	@Override
 	public void updateElectionDistrict(int prvId, int distNum, int pty1Id, int pty1Vote, int pty2Id, int pty2Vote, int pty3Id,
-			int pty3Vote, int badVote, int voteNo) {
-		districtDao.updateElectionDistrict(prvId, distNum, pty1Id, pty1Vote, pty2Id, pty2Vote, pty3Id, pty3Vote, badVote, voteNo);
+			int pty3Vote, int badVote, int voteNo, String UpdBy) {
+		districtDao.updateElectionDistrict(prvId, distNum, pty1Id, pty1Vote, pty2Id, pty2Vote, pty3Id, pty3Vote, badVote, voteNo, UpdBy);
 	}
 
 	@Override
