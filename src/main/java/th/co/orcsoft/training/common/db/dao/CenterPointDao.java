@@ -8,5 +8,5 @@ public interface CenterPointDao {
 	public List<VoteModel> getRequestedConfirmations();
 	public List<VoteModel> getRequestedModifications();
 	public void replyRequestedConfirmations(int id, boolean isApproved, String updatedBy);
-	public void replyRequestedModifications(int id, boolean isApproved, String updatedBy);
+	public void replyRequestedModifications(int id, boolean isApproved);
 }

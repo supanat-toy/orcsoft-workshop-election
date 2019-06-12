@@ -38,7 +38,7 @@ public class CenterPointController extends BaseController {
 	@RequestMapping(value = "getRequestedConfirmations", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody AbsResponseModel getRequestedConfirmations(HttpServletRequest request, HttpServletResponse response) {
 		
-		String userId = this.getUserIdByHeader(response);
+		int userId = this.getUserIdByHeader(response);
 		boolean isOfficer = this.isOfficerByHeader(response);
 		List<VoteModel> requestedConfirmations = centerPointService.getRequestedConfirmations();
 
@@ -48,7 +48,7 @@ public class CenterPointController extends BaseController {
 	@RequestMapping(value = "getRequestedModifications", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody AbsResponseModel getRequestedModifications(HttpServletRequest request, HttpServletResponse response) {
 		
-		String userId = this.getUserIdByHeader(response);
+		int userId = this.getUserIdByHeader(response);
 		List<VoteModel> requestedModifications = centerPointService.getRequestedModifications();
 		return null;
 	}
@@ -56,18 +56,17 @@ public class CenterPointController extends BaseController {
 	@RequestMapping(value = "replyRequestedConfirmation", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
 	public @ResponseBody AbsResponseModel replyRequestedConfirmation(int districtId, boolean isApproved, HttpServletRequest request, HttpServletResponse response) {
 		
-		String userId = this.getUserIdByHeader(response);
-		String updatedBy = this.getUserProfile(userId);
-		centerPointService.replyRequestedConfirmations(districtId, isApproved, updatedBy);
-		
+		int userId = this.getUserIdByHeader(response);
+		UsersModel userProfile = this.authService.getUserProfile(userId);
+		centerPointService.replyRequestedConfirmations(districtId, isApproved, userProfile.getLogin());
 		return null;
 	}
 	
 	@RequestMapping(value = "replyRequestedModification", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
 	public @ResponseBody AbsResponseModel replyRequestedModification(int districtId, boolean isApproved, HttpServletRequest request, HttpServletResponse response) {
 		
-		String userId = this.getUserIdByHeader(response);
-		centerPointService.replyRequestedModifications(districtId, isApproved,updatedBy);
+		int userId = this.getUserIdByHeader(response);
+		centerPointService.replyRequestedModifications(districtId, isApproved);
 
 		return null;
 	}
