@@ -48,7 +48,8 @@ public class CenterPointController extends BaseController {
 	@RequestMapping(value = "getRequestedModifications", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody AbsResponseModel getRequestedModifications(HttpServletRequest request, HttpServletResponse response) {
 		
-		//int userId = this.getUserIdByHeader(response);
+		int userId = this.getUserIdByHeader(response);
+		boolean isOfficer = this.isOfficerByHeader(response);
 		List<VoteModel> requestedModifications = centerPointService.getRequestedModifications();
 		return null;
 	}
@@ -67,8 +68,9 @@ public class CenterPointController extends BaseController {
 	public @ResponseBody AbsResponseModel replyRequestedModification(int districtId, boolean isApproved, HttpServletRequest request, HttpServletResponse response) {
 		
 		int userId = this.getUserIdByHeader(response);
-		centerPointService.replyRequestedModifications(districtId, isApproved);
-
+		UsersModel userProfile = this.authService.getUserProfile(userId);
+		centerPointService.replyRequestedModifications(districtId, isApproved,userProfile.getLogin());
+		
 		return null;
 	}
 }

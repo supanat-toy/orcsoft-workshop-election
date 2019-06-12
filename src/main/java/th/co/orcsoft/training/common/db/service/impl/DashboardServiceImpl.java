@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import th.co.orcsoft.training.common.db.dao.DashboardDao;
 import th.co.orcsoft.training.common.db.service.AuthService;
 import th.co.orcsoft.training.common.db.service.DashboardService;
+import th.co.orcsoft.training.model.db.GetElectionPartyDistrictsModel;
+import th.co.orcsoft.training.model.db.GetElectionPartyRegionModel;
+import th.co.orcsoft.training.model.db.GetSummaryElectionPartyDistrictsModel;
 import th.co.orcsoft.training.model.db.ProvinceModel;
 import th.co.orcsoft.training.model.db.RegionModel;
 
@@ -28,13 +31,20 @@ public class DashboardServiceImpl implements DashboardService {
 	}
 
 	@Override
-	public List<Object> getElectionPartyDistricts(int provinceId) {
+	public List<GetElectionPartyDistrictsModel> getElectionPartyDistricts(int provinceId) {
 		return dashboardDao.getElectionPartyDistricts(provinceId);
 	}
-
+	
 	@Override
-	public List<Object> getElectionPartyRegion(int regionId) {
-		return getElectionPartyRegion(regionId);
+	public List<GetElectionPartyRegionModel> getElectionPartyRegion(int regionId) {
+		return dashboardDao.getElectionPartyRegion(regionId);
 	}
+	
+	@Override
+	public List<GetSummaryElectionPartyDistrictsModel> getSummaryElectionPartyDistricts(int provinceId) {
+		return dashboardDao.getSummaryElectionPartyDistricts(provinceId);
+	}
+	
+
 
 }
