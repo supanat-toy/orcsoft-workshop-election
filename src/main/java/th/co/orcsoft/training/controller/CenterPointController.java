@@ -35,6 +35,7 @@ public class CenterPointController extends BaseController {
 	public @ResponseBody AbsResponseModel getRequestedConfirmations(HttpServletRequest request, HttpServletResponse response) {
 		
 		String userId = this.getUserIdByHeader(response);
+		boolean isOfficer = this.isOfficerByHeader(response);
 		List<VoteModel> requestedConfirmations = centerPointService.getRequestedConfirmations();
 
 		return null;

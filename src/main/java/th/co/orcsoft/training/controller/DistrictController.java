@@ -64,7 +64,7 @@ public class DistrictController extends BaseController {
 		return null;
 	}
 	
-	@RequestMapping(value = "getResultRequestedModifications", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
+	@RequestMapping(value = "getResultRequestedModifications", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody AbsResponseModel getResultRequestedModifications(HttpServletRequest request, HttpServletResponse response) {
 		
 		String userId = this.getUserIdByHeader(response);
