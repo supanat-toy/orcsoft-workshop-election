@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -55,7 +56,7 @@ public class CenterPointController extends BaseController {
 
 	@RequestMapping(value = "replyRequestedConfirmation", produces = {
 			MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
-	public @ResponseBody AbsResponseModel replyRequestedConfirmation(int districtId, boolean isApproved,
+	public @ResponseBody AbsResponseModel replyRequestedConfirmation(@RequestBody int districtId, boolean isApproved,
 			HttpServletRequest request, HttpServletResponse response) {
 
 		int userId = this.getUserIdByHeader(response);
@@ -66,7 +67,7 @@ public class CenterPointController extends BaseController {
 
 	@RequestMapping(value = "replyRequestedModification", produces = {
 			MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
-	public @ResponseBody AbsResponseModel replyRequestedModification(int districtId, boolean isApproved,
+	public @ResponseBody AbsResponseModel replyRequestedModification(@RequestBody int districtId, boolean isApproved,
 			HttpServletRequest request, HttpServletResponse response) {
 
 		int userId = this.getUserIdByHeader(response);
