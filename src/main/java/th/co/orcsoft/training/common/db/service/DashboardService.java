@@ -1,5 +1,6 @@
 package th.co.orcsoft.training.common.db.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import th.co.orcsoft.training.model.db.GetElectionPartyDistrictsModel;
@@ -14,4 +15,5 @@ public interface DashboardService {
 	public List<GetElectionPartyDistrictsModel> getElectionPartyDistricts(int provinceId);
 	public List<GetElectionPartyRegionModel> getElectionPartyRegion(int regionId);
 	public List<GetSummaryElectionPartyDistrictsModel> getSummaryElectionPartyDistricts(int provinceId);
+	public ArrayList<Integer> getNotApprovedDistrictsByProvince(int provinceId);
 }

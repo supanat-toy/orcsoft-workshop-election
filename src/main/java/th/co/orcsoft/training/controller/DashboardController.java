@@ -18,6 +18,8 @@ import th.co.orcsoft.training.common.db.service.DashboardService;
 import th.co.orcsoft.training.common.db.service.PartyService;
 import th.co.orcsoft.training.controller.common.BaseController;
 import th.co.orcsoft.training.model.common.AbsResponseModel;
+import th.co.orcsoft.training.model.common.dashboard.response.GetAllRegions;
+import th.co.orcsoft.training.model.common.dashboard.response.GetAllNotApprovedDistricts;
 import th.co.orcsoft.training.model.common.dashboard.response.GetAllProvinces;
 import th.co.orcsoft.training.model.common.dashboard.response.GetAllRegions;
 import th.co.orcsoft.training.model.common.dashboard.response.GetElectionPartyDistricts;
@@ -29,6 +31,7 @@ import th.co.orcsoft.training.model.db.GetElectionPartyRegionModel;
 import th.co.orcsoft.training.model.db.ProvinceModel;
 import th.co.orcsoft.training.model.db.RegionModel;
 import th.co.orcsoft.training.model.db.VoteModel;
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping(value = "/api/dashboard")
@@ -78,6 +81,16 @@ public class DashboardController extends BaseController {
 		electionPartyRegion.setGetElectionPartyRegionList(dashboardService.getElectionPartyRegion(regionId));
 		 
 		return electionPartyRegion;
+	}
+	
+	@RequestMapping(value = "getNotApprovedDistrictsByProvince", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
+	public @ResponseBody AbsResponseModel getNotApprovedDistrictsByProvince(int provinceId, HttpServletRequest request, HttpServletResponse response) {
+		
+		GetAllNotApprovedDistricts getAllNotApprovedDistricts = new GetAllNotApprovedDistricts();
+		ArrayList<Integer> notApprovedDistrictList = dashboardService.getNotApprovedDistrictsByProvince(provinceId);
+		getAllNotApprovedDistricts.setNotApprovedDistrictList(notApprovedDistrictList);
+		
+		return getAllNotApprovedDistricts;
 	}
 	
 	@RequestMapping(value = "getSummaryElectionPartyDistricts", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)

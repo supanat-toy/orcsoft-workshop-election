@@ -1,11 +1,13 @@
 package th.co.orcsoft.training.common.db.dao.impl;
 import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
 import th.co.orcsoft.training.common.db.dao.AbsCorDao;
 import th.co.orcsoft.training.common.db.dao.DashboardDao;
+import th.co.orcsoft.training.model.db.ProvinceDistrictVote;
 import th.co.orcsoft.training.model.db.GetElectionPartyDistrictsModel;
 import th.co.orcsoft.training.model.db.GetElectionPartyRegionModel;
 import th.co.orcsoft.training.model.db.GetSummaryElectionPartyDistrictsModel;
@@ -63,6 +65,37 @@ public class DashboardDaoImpl extends AbsCorDao implements DashboardDao {
 				"        ORDER BY SUM_MHR_BY_REGION.mHR desc;";
 		List<GetElectionPartyRegionModel> ElectionPartyRegion = namedParameterJdbcTemplate.query(sql, new BeanPropertyRowMapper<GetElectionPartyRegionModel>(GetElectionPartyRegionModel.class));
 		return ElectionPartyRegion;
+	}
+
+	@Override
+	public ArrayList<Integer> getNotApprovedDistrictsByProvince(int provinceId) {
+		String sql = "select Province.PrvID as provinceId, Province.numDist as numberAllDistricts, Vote.DistNum as voteDistrictNumber " + 
+					 "from Province " + 
+					 "left join Vote on Province.PrvID = Vote.PrvID " + 
+					 "where Province.PrvID = " + provinceId;
+		
+		List<ProvinceDistrictVote> districtProvinceList = namedParameterJdbcTemplate.query(sql, new BeanPropertyRowMapper<ProvinceDistrictVote>(ProvinceDistrictVote.class));
+
+		ArrayList<Integer> notApprovedDistrictList = new ArrayList<>();
+		
+		if (districtProvinceList.size() > 0) {	
+			ArrayList<Integer> approvedDistrictList = new ArrayList<>();
+			for (ProvinceDistrictVote value: districtProvinceList) {
+				Integer voteDistrictNumber = value.getVoteDistrictNumber();
+				if (voteDistrictNumber != null) {
+					approvedDistrictList.add(voteDistrictNumber);
+				}
+			}
+			
+			int numberAllDistricts = districtProvinceList.get(0).getNumberAllDistricts();
+			for (int i = 1; i <= numberAllDistricts; i++) {
+				if (!approvedDistrictList.contains(i)) {
+					notApprovedDistrictList.add(i);
+				}
+			}
+		}
+		
+		return notApprovedDistrictList;
 	}
 	
 	@Override
