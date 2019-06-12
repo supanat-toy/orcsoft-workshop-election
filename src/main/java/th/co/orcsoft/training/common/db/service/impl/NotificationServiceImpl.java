@@ -16,8 +16,8 @@ public class NotificationServiceImpl implements NotificationService {
 	public NotificationDao notificationDao;
 	
 	@Override
-	public List<NotificationModel> getNotificationList(String userId) {
-		return notificationDao.getNotificationList(userId);
+	public List<NotificationModel> getNotificationList(boolean isOfficer) {
+		return notificationDao.getNotificationList(isOfficer);
 	}
 
 }

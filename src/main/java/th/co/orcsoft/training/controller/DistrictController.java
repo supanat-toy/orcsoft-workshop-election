@@ -18,6 +18,8 @@ import th.co.orcsoft.training.common.db.service.DistrictService;
 import th.co.orcsoft.training.common.db.service.PartyService;
 import th.co.orcsoft.training.controller.common.BaseController;
 import th.co.orcsoft.training.model.common.AbsResponseModel;
+import th.co.orcsoft.training.model.common.district.response.GetElectionDistricts;
+import th.co.orcsoft.training.model.common.district.response.GetResultRequestedModiResponse;
 import th.co.orcsoft.training.model.common.party.response.GetAllPartyResponse;
 import th.co.orcsoft.training.model.db.VoteModel;
 
@@ -51,8 +53,9 @@ public class DistrictController extends BaseController {
 	public @ResponseBody AbsResponseModel getElectionDistricts(int districtId, HttpServletRequest request, HttpServletResponse response) {
 		
 		VoteModel electionPartyDistricts = districtService.getElectionDistrictInfo(districtId);
-
-		return null;
+		GetElectionDistricts getElectionDistricts = new GetElectionDistricts();
+		getElectionDistricts.setVoteModel(electionPartyDistricts);
+		return getElectionDistricts;
 	}
 	
 	@RequestMapping(value = "requestToModifiedElectionResult", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
@@ -68,8 +71,10 @@ public class DistrictController extends BaseController {
 	public @ResponseBody AbsResponseModel getResultRequestedModifications(HttpServletRequest request, HttpServletResponse response) {
 		
 		String userId = this.getUserIdByHeader(response);
-		List<VoteModel> resultRequestModification = districtService.getResultRequestModifications();
+		
+		GetResultRequestedModiResponse getResultRequestedModifications = new GetResultRequestedModiResponse();
+		getResultRequestedModifications.setVoteList(districtService.getResultRequestModifications());
 
-		return null;
+		return getResultRequestedModifications;
 	}
 }
