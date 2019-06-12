@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import th.co.orcsoft.training.common.db.service.AuthService;
 import th.co.orcsoft.training.common.db.service.DistrictService;
 import th.co.orcsoft.training.common.db.service.PartyService;
 import th.co.orcsoft.training.controller.common.BaseController;
@@ -30,10 +31,14 @@ public class DistrictController extends BaseController {
 	@Autowired
 	private DistrictService districtService;
 	
+	@Autowired
+	private AuthService authService;
+	
 	@RequestMapping(value = "createElectionDistinct", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
 	public @ResponseBody AbsResponseModel createElectionDistinct(int prvId, int distNum, int pty1Id, int pty1Vote, int pty2Id, int pty2Vote, int pty3Id, int pty3Vote, double badVote, double voteNo, HttpServletRequest request, HttpServletResponse response) {
 		
 		String userId = this.getUserIdByHeader(response);
+//		authService.getUserProfile(userId)
 		districtService.createElectionDistrict(prvId, distNum, pty1Id, pty1Vote, pty2Id, pty2Vote, pty3Id, pty3Vote, badVote, voteNo);
 
 		return null;
