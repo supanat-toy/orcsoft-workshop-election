@@ -34,7 +34,7 @@ public class DistrictController extends BaseController {
 	@RequestMapping(value = "createElectionDistinct", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
 	public @ResponseBody AbsResponseModel createElectionDistinct(int prvId, int distNum, int pty1Id, int pty1Vote, int pty2Id, int pty2Vote, int pty3Id, int pty3Vote, int badVote, int voteNo, HttpServletRequest request, HttpServletResponse response) {
 		
-		String userId = this.getUserIdByHeader(response);
+		int userId = this.getUserIdByHeader(response);
 		districtService.createElectionDistrict(prvId, distNum, pty1Id, pty1Vote, pty2Id, pty2Vote, pty3Id, pty3Vote, badVote, voteNo);
 
 		return null;
@@ -43,7 +43,7 @@ public class DistrictController extends BaseController {
 	@RequestMapping(value = "updateElectionDistrict", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
 	public @ResponseBody AbsResponseModel updateElectionDistrict(int prvId, int distNum, int pty1Id, int pty1Vote, int pty2Id, int pty2Vote, int pty3Id, int pty3Vote, int badVote, int voteNo, HttpServletRequest request, HttpServletResponse response) {
 		
-		String userId = this.getUserIdByHeader(response);
+		int userId = this.getUserIdByHeader(response);
 		districtService.updateElectionDistrict(prvId, distNum, pty1Id, pty1Vote, pty2Id, pty2Vote, pty3Id, pty3Vote, badVote, voteNo);
 
 		return null;
@@ -61,7 +61,7 @@ public class DistrictController extends BaseController {
 	@RequestMapping(value = "requestToModifiedElectionResult", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
 	public @ResponseBody AbsResponseModel requestToModifiedElectionResult(int districtId, HttpServletRequest request, HttpServletResponse response) {
 		
-		String userId = this.getUserIdByHeader(response);
+		int userId = this.getUserIdByHeader(response);
 		districtService.getElectionDistrictInfo(districtId);
 
 		return null;
@@ -70,7 +70,7 @@ public class DistrictController extends BaseController {
 	@RequestMapping(value = "getResultRequestedModifications", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody AbsResponseModel getResultRequestedModifications(HttpServletRequest request, HttpServletResponse response) {
 		
-		String userId = this.getUserIdByHeader(response);
+		int userId = this.getUserIdByHeader(response);
 		
 		GetResultRequestedModiResponse getResultRequestedModifications = new GetResultRequestedModiResponse();
 		getResultRequestedModifications.setVoteList(districtService.getResultRequestModifications());
