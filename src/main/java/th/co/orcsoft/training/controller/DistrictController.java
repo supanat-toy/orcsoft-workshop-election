@@ -38,8 +38,8 @@ public class DistrictController extends BaseController {
 	@RequestMapping(value = "createElectionDistinct", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
 	public @ResponseBody AbsResponseModel createElectionDistinct(int prvId, int distNum, int pty1Id, int pty1Vote, int pty2Id, int pty2Vote, int pty3Id, int pty3Vote, double badVote, double voteNo, HttpServletRequest request, HttpServletResponse response) {
 		
-//		int userId = this.getUserIdByHeader(response);
-		UsersModel userProfile = authService.getUserProfile(8);
+		int userId = this.getUserIdByHeader(response);
+		UsersModel userProfile = authService.getUserProfile(userId);
 		districtService.createElectionDistrict(prvId, distNum, pty1Id, pty1Vote, pty2Id, pty2Vote, pty3Id, pty3Vote, badVote, voteNo, userProfile.getLogin());
 
 		return new AbsResponseModel() {};
