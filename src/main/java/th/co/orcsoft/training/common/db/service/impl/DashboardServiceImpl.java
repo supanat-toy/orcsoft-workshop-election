@@ -1,5 +1,6 @@
 package th.co.orcsoft.training.common.db.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,11 @@ public class DashboardServiceImpl implements DashboardService {
 	@Override
 	public List<Object> getElectionPartyRegion(int regionId) {
 		return getElectionPartyRegion(regionId);
+	}
+
+	@Override
+	public ArrayList<Integer> getNotApprovedDistrictsByProvince(int provinceId) {
+		return dashboardDao.getNotApprovedDistrictsByProvince(provinceId);
 	}
 
 }
