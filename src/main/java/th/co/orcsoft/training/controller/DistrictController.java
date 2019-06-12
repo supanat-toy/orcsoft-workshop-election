@@ -14,13 +14,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import th.co.orcsoft.training.common.db.service.AuthService;
 import th.co.orcsoft.training.common.db.service.DistrictService;
 import th.co.orcsoft.training.common.db.service.PartyService;
+import th.co.orcsoft.training.common.db.service.impl.AuthServiceImpl;
 import th.co.orcsoft.training.controller.common.BaseController;
 import th.co.orcsoft.training.model.common.AbsResponseModel;
 import th.co.orcsoft.training.model.common.district.response.GetElectionDistricts;
 import th.co.orcsoft.training.model.common.district.response.GetResultRequestedModiResponse;
 import th.co.orcsoft.training.model.common.party.response.GetAllPartyResponse;
+import th.co.orcsoft.training.model.db.UsersModel;
 import th.co.orcsoft.training.model.db.VoteModel;
 
 @RestController
@@ -61,8 +64,14 @@ public class DistrictController extends BaseController {
 	@RequestMapping(value = "requestToModifiedElectionResult", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
 	public @ResponseBody AbsResponseModel requestToModifiedElectionResult(int districtId, HttpServletRequest request, HttpServletResponse response) {
 		
-		int userId = this.getUserIdByHeader(response);
-		districtService.getElectionDistrictInfo(districtId);
+//		int userId = this.getUserIdByHeader(response);
+//		AuthService user = new AuthServiceImpl();
+//		UsersModel userProfile = user.getUserProfile(userId);
+//		String updBy = userProfile.getLogin();
+		
+		String updBy = "ice";
+		
+		districtService.requestToModifiedElectionResult(districtId,updBy);
 
 		return null;
 	}

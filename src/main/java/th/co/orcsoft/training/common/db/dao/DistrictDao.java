@@ -8,6 +8,6 @@ public interface DistrictDao {
 	public VoteModel getElectionDistrictInfo(int districtId);
 	public void createElectionDistrict(int prvId, int distNum, int pty1Id, int pty1Vote, int pty2Id, int pty2Vote, int pty3Id, int pty3Vote, int badVote, int voteNo);
 	public void updateElectionDistrict(int prvId, int distNum, int pty1Id, int pty1Vote, int pty2Id, int pty2Vote, int pty3Id, int pty3Vote, int badVote, int voteNo);
-	public void requestToModifiedElectionResult(int districtId);
+	public void requestToModifiedElectionResult(int districtId,String updBy);
 	public List<VoteModel> getResultRequestModifications();
 }
