@@ -39,4 +39,14 @@ public class AuthController {
 		getAuthorization.setUser(user);
 		return getAuthorization;
 	}
+	
+	@RequestMapping(value = "getProfile", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
+	public @ResponseBody AbsResponseModel getProfile(int id, HttpServletRequest request, HttpServletResponse response) {
+		
+		GetAuthorization getAuthorization = new GetAuthorization();
+		
+		UsersModel user = authService.getUserProfile(id);
+		getAuthorization.setUser(user);
+		return getAuthorization;
+	}
 }
