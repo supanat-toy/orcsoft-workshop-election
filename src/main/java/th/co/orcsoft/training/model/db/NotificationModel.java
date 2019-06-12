@@ -1,6 +1,6 @@
 package th.co.orcsoft.training.model.db;
 
-import java.util.Calendar;
+import java.sql.Timestamp;
 
 public class NotificationModel {
 
@@ -8,7 +8,7 @@ public class NotificationModel {
 	private String msg;
 	private String respPosn;
 	private String respBy;
-	private Calendar creDTM;
+	private Timestamp creDTM;
 	private int distID;
 	private String msgTh;
 	
@@ -36,10 +36,10 @@ public class NotificationModel {
 	public void setRespBy(String respBy) {
 		this.respBy = respBy;
 	}
-	public Calendar getCreDTM() {
+	public Timestamp getCreDTM() {
 		return creDTM;
 	}
-	public void setCreDTM(Calendar creDTM) {
+	public void setCreDTM(Timestamp creDTM) {
 		this.creDTM = creDTM;
 	}
 	public int getDistID() {

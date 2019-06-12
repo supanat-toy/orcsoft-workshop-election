@@ -11,23 +11,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import th.co.orcsoft.training.common.db.service.NotificationService;
 import th.co.orcsoft.training.common.db.service.PartyService;
+import th.co.orcsoft.training.controller.common.BaseController;
 import th.co.orcsoft.training.model.common.AbsResponseModel;
+import th.co.orcsoft.training.model.common.notification.response.GetFeedNotifications;
 import th.co.orcsoft.training.model.common.party.response.GetAllPartyResponse;
 
 @RestController
-@RequestMapping(value = "/api/party")
+@RequestMapping(value = "/api/notification")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class PartyController {
+public class NotificationController extends BaseController {
 
 	@Autowired
-	private PartyService partyService;
+	private NotificationService notificationService;
 
-	@GetMapping(value = "getAllParty", produces = { MediaType.APPLICATION_JSON_VALUE })
+	@GetMapping(value = "getFeedNotifications", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody AbsResponseModel getAllMenuList(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		GetAllPartyResponse getAllPartyResponse = new GetAllPartyResponse();
-		getAllPartyResponse.setPartyList(partyService.getAllParty());
-		return getAllPartyResponse;
+		
+		String userId = this.getUserIdByHeader(response);
+		
+		GetFeedNotifications getFeedNotifications = new GetFeedNotifications();
+		getFeedNotifications.setNotifications(notificationService.getNotificationList(userId));
+		return getFeedNotifications;
 	}
 }
