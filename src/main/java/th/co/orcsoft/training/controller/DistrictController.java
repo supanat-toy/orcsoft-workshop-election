@@ -15,11 +15,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import th.co.orcsoft.training.common.db.service.AuthService;
+import th.co.orcsoft.training.common.db.dao.AuthDao;
 import th.co.orcsoft.training.common.db.service.DistrictService;
 import th.co.orcsoft.training.common.db.service.PartyService;
+import th.co.orcsoft.training.common.db.service.impl.AuthServiceImpl;
 import th.co.orcsoft.training.controller.common.BaseController;
 import th.co.orcsoft.training.model.common.AbsResponseModel;
 import th.co.orcsoft.training.model.common.district.response.GetElectionDistricts;
+import th.co.orcsoft.training.model.common.district.response.GetResultRequestedModiResponse;
 import th.co.orcsoft.training.model.common.party.response.GetAllPartyResponse;
 import th.co.orcsoft.training.model.db.UsersModel;
 import th.co.orcsoft.training.model.db.VoteModel;
@@ -49,8 +52,9 @@ public class DistrictController extends BaseController {
 	public @ResponseBody AbsResponseModel updateElectionDistrict(int prvId, int distNum, int pty1Id, int pty1Vote, int pty2Id, int pty2Vote, int pty3Id, int pty3Vote, int badVote, int voteNo, HttpServletRequest request, HttpServletResponse response) {
 		
 		int userId = this.getUserIdByHeader(response);
-		districtService.updateElectionDistrict(prvId, distNum, pty1Id, pty1Vote, pty2Id, pty2Vote, pty3Id, pty3Vote, badVote, voteNo);
-
+		AuthServiceImpl authServiceImpl = new AuthServiceImpl();
+		UsersModel usersModel = authServiceImpl.getUserProfile(userId);
+		districtService.updateElectionDistrict(prvId, distNum, pty1Id, pty1Vote, pty2Id, pty2Vote, pty3Id, pty3Vote, badVote, voteNo, usersModel.getLogin());
 		return null;
 	}
 	
@@ -67,7 +71,11 @@ public class DistrictController extends BaseController {
 	public @ResponseBody AbsResponseModel requestToModifiedElectionResult(int districtId, HttpServletRequest request, HttpServletResponse response) {
 		
 		int userId = this.getUserIdByHeader(response);
-		districtService.getElectionDistrictInfo(districtId);
+		AuthService user = new AuthServiceImpl();
+		UsersModel userProfile = user.getUserProfile(userId);
+		String updBy = userProfile.getLogin();
+		
+		districtService.requestToModifiedElectionResult(districtId,updBy);
 
 		return null;
 	}
@@ -76,8 +84,10 @@ public class DistrictController extends BaseController {
 	public @ResponseBody AbsResponseModel getResultRequestedModifications(HttpServletRequest request, HttpServletResponse response) {
 		
 		int userId = this.getUserIdByHeader(response);
-		List<VoteModel> resultRequestModification = districtService.getResultRequestModifications();
+		
+		GetResultRequestedModiResponse getResultRequestedModifications = new GetResultRequestedModiResponse();
+		getResultRequestedModifications.setVoteList(districtService.getResultRequestModifications());
 
-		return null;
+		return getResultRequestedModifications;
 	}
 }
