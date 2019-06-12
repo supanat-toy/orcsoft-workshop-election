@@ -18,6 +18,7 @@ import th.co.orcsoft.training.common.db.service.DashboardService;
 import th.co.orcsoft.training.common.db.service.PartyService;
 import th.co.orcsoft.training.controller.common.BaseController;
 import th.co.orcsoft.training.model.common.AbsResponseModel;
+import th.co.orcsoft.training.model.common.dashboard.response.GetAllRegions;
 import th.co.orcsoft.training.model.common.party.response.GetAllPartyResponse;
 import th.co.orcsoft.training.model.db.ProvinceModel;
 import th.co.orcsoft.training.model.db.RegionModel;
@@ -44,7 +45,10 @@ public class DashboardController extends BaseController {
 		
 		List<RegionModel> regions = dashboardService.getRegions();
 
-		return null;
+		GetAllRegions allRegions = new GetAllRegions();
+		allRegions.setRegionList(regions);
+		
+		return allRegions;
 	}
 	
 	@RequestMapping(value = "getElectionPartyDistricts", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
