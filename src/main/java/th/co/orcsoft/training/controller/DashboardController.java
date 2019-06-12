@@ -19,6 +19,7 @@ import th.co.orcsoft.training.common.db.service.PartyService;
 import th.co.orcsoft.training.controller.common.BaseController;
 import th.co.orcsoft.training.model.common.AbsResponseModel;
 import th.co.orcsoft.training.model.common.dashboard.response.GetAllRegions;
+import th.co.orcsoft.training.model.common.dashboard.response.GetAllProvinces;
 import th.co.orcsoft.training.model.common.party.response.GetAllPartyResponse;
 import th.co.orcsoft.training.model.db.ProvinceModel;
 import th.co.orcsoft.training.model.db.RegionModel;
@@ -37,7 +38,10 @@ public class DashboardController extends BaseController {
 		
 		List<ProvinceModel> provinces = dashboardService.getProvinces();
 
-		return null;
+		GetAllProvinces getAllProvinces = new GetAllProvinces();
+		getAllProvinces.setProvinceList(provinces);
+		
+		return getAllProvinces;
 	}
 	
 	@RequestMapping(value = "getRegions", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)

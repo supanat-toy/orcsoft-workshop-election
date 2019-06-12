@@ -30,10 +30,10 @@ public class NotificationController extends BaseController {
 	public @ResponseBody AbsResponseModel getAllMenuList(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		
-		String userId = this.getUserIdByHeader(response);
+		boolean isOfficer = this.isOfficerByHeader(response);
 		
 		GetFeedNotifications getFeedNotifications = new GetFeedNotifications();
-		getFeedNotifications.setNotifications(notificationService.getNotificationList(userId));
+		getFeedNotifications.setNotifications(notificationService.getNotificationList(isOfficer));
 		return getFeedNotifications;
 	}
 }
