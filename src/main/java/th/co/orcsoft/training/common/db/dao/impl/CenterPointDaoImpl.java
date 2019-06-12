@@ -2,6 +2,8 @@ package th.co.orcsoft.training.common.db.dao.impl;
 import java.util.List;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import th.co.orcsoft.training.common.db.dao.AbsCorDao;
@@ -23,8 +25,9 @@ public class CenterPointDaoImpl extends AbsCorDao implements CenterPointDao {
 	public List<VoteModel> getRequestedModifications() {
 		String sql = "SELECT * FROM VOTE WHERE AprvFlag = 'true' "
 				+ "AND UpdFlag = 'true'"
-				+ "AND UpdAprvFlag is null";
+				+ "AND UpdAprvFlag is null ";
 		List<VoteModel> list = namedParameterJdbcTemplate.query(sql, new BeanPropertyRowMapper<VoteModel>(VoteModel.class));
+		System.out.println(list);
 		return list;
 	}
 
@@ -35,8 +38,34 @@ public class CenterPointDaoImpl extends AbsCorDao implements CenterPointDao {
 	}
 
 	@Override
-	public void replyRequestedModifications(int id, boolean isApproved) {
-		
+	public void replyRequestedModifications(int id, boolean isApproved,String updateBy) {
+		if (isApproved = true) {
+			String sql = "UPDATE VOTE SET UpdAprvBy = '"+updateBy+"'"
+					+ ", updAprvFlag ='true' "
+					+ "WHERE DistID = "+id+" "; 
+			
+			SqlParameterSource namedParameters = new MapSqlParameterSource();
+			int status =  namedParameterJdbcTemplate.update(sql, namedParameters);
+				if(status != 0){
+					System.out.println("data updated for distId"+id);
+				}else{
+					System.out.println("Not data updated for distId"+id);
+				}		
+				
+		}else {
+			String sql = "UPDATE VOTE SET UpdAprvBy = '"+updateBy+"'"
+					+ ", UpdAprvFlag = 'false' "
+					+ "WHERE DistID = "+id+" ";
+			
+			SqlParameterSource namedParameters = new MapSqlParameterSource();
+			int status =  namedParameterJdbcTemplate.update(sql, namedParameters);
+			 	if(status != 0){
+			 		System.out.println("data updated for distId"+id);
+				}else{
+					System.out.println("Not data updated for distId"+id);
+				}			
+			 	
+		}
 	}
 
 }
