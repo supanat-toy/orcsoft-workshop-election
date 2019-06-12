@@ -41,7 +41,10 @@ public class DashboardController extends BaseController {
 		
 		List<ProvinceModel> provinces = dashboardService.getProvinces();
 
-		return null;
+		GetAllProvinces getAllProvinces = new GetAllProvinces();
+		getAllProvinces.setProvinceList(provinces);
+		
+		return getAllProvinces;
 	}
 	
 	@RequestMapping(value = "getRegions", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
@@ -49,7 +52,10 @@ public class DashboardController extends BaseController {
 		
 		List<RegionModel> regions = dashboardService.getRegions();
 
-		return null;
+		GetAllRegions allRegions = new GetAllRegions();
+		allRegions.setRegionList(regions);
+		
+		return allRegions;
 	}
 	
 	@RequestMapping(value = "getElectionPartyDistricts", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
