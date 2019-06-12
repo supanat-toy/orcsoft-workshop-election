@@ -6,6 +6,6 @@ import th.co.orcsoft.training.model.db.NotificationModel;
 
 public interface NotificationDao {
 
-	public List<NotificationModel> getNotificationList(String userId);
+	public List<NotificationModel> getNotificationList(boolean isOfficer);
 	
 }
