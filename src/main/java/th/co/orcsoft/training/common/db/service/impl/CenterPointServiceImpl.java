@@ -27,8 +27,8 @@ public class CenterPointServiceImpl implements CenterPointService {
 	}
 
 	@Override
-	public void replyRequestedConfirmations(int id, boolean isApproved) {
-		centerPointDao.replyRequestedConfirmations(id, isApproved);
+	public void replyRequestedConfirmations(int id, boolean isApproved, String updatedBy) {
+		centerPointDao.replyRequestedConfirmations(id, isApproved, updatedBy);
 	}
 
 	@Override

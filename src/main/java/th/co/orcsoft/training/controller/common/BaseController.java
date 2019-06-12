@@ -10,5 +10,5 @@ public class BaseController {
 	
 	public boolean isOfficerByHeader(HttpServletResponse response) {
 		return response.getHeader("role").toLowerCase().equals("officer");
-	} 
+	}
 }
