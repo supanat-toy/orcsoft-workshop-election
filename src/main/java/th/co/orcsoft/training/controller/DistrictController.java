@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import th.co.orcsoft.training.common.db.service.AuthService;
+import th.co.orcsoft.training.common.db.dao.AuthDao;
 import th.co.orcsoft.training.common.db.service.DistrictService;
 import th.co.orcsoft.training.common.db.service.PartyService;
 import th.co.orcsoft.training.common.db.service.impl.AuthServiceImpl;
@@ -47,8 +48,9 @@ public class DistrictController extends BaseController {
 	public @ResponseBody AbsResponseModel updateElectionDistrict(int prvId, int distNum, int pty1Id, int pty1Vote, int pty2Id, int pty2Vote, int pty3Id, int pty3Vote, int badVote, int voteNo, HttpServletRequest request, HttpServletResponse response) {
 		
 		int userId = this.getUserIdByHeader(response);
-		districtService.updateElectionDistrict(prvId, distNum, pty1Id, pty1Vote, pty2Id, pty2Vote, pty3Id, pty3Vote, badVote, voteNo);
-
+		AuthServiceImpl authServiceImpl = new AuthServiceImpl();
+		UsersModel usersModel = authServiceImpl.getUserProfile(userId);
+		districtService.updateElectionDistrict(prvId, distNum, pty1Id, pty1Vote, pty2Id, pty2Vote, pty3Id, pty3Vote, badVote, voteNo, usersModel.getLogin());
 		return null;
 	}
 	
