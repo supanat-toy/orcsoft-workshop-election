@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import th.co.orcsoft.training.common.db.service.AuthService;
 import th.co.orcsoft.training.common.db.service.CenterPointService;
 import th.co.orcsoft.training.common.db.service.PartyService;
 import th.co.orcsoft.training.controller.common.BaseController;
@@ -31,6 +32,9 @@ public class CenterPointController extends BaseController {
 	@Autowired
 	private CenterPointService centerPointService;
 	
+	@Autowired
+	private AuthService authService;
+	
 	@RequestMapping(value = "getRequestedConfirmations", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody AbsResponseModel getRequestedConfirmations(HttpServletRequest request, HttpServletResponse response) {
 		
@@ -46,7 +50,6 @@ public class CenterPointController extends BaseController {
 		
 		String userId = this.getUserIdByHeader(response);
 		List<VoteModel> requestedModifications = centerPointService.getRequestedModifications();
-
 		return null;
 	}
 	
@@ -54,8 +57,9 @@ public class CenterPointController extends BaseController {
 	public @ResponseBody AbsResponseModel replyRequestedConfirmation(int districtId, boolean isApproved, HttpServletRequest request, HttpServletResponse response) {
 		
 		String userId = this.getUserIdByHeader(response);
-		centerPointService.replyRequestedConfirmations(districtId, isApproved);
-
+		String updatedBy = this.getUserProfile(userId);
+		centerPointService.replyRequestedConfirmations(districtId, isApproved, updatedBy);
+		
 		return null;
 	}
 	
@@ -63,7 +67,7 @@ public class CenterPointController extends BaseController {
 	public @ResponseBody AbsResponseModel replyRequestedModification(int districtId, boolean isApproved, HttpServletRequest request, HttpServletResponse response) {
 		
 		String userId = this.getUserIdByHeader(response);
-		centerPointService.replyRequestedModifications(districtId, isApproved);
+		centerPointService.replyRequestedModifications(districtId, isApproved,updatedBy);
 
 		return null;
 	}

@@ -29,9 +29,9 @@ public class CenterPointDaoImpl extends AbsCorDao implements CenterPointDao {
 	}
 
 	@Override
-	public void replyRequestedConfirmations(int id, boolean isApproved) {
+	public void replyRequestedConfirmations(int id, boolean isApproved, String updatedBy) {
 		if(isApproved) {
-			String sql = "UPDATE VOTE SET AprvFlag = 'true' , AprvBy =  , UpdBy is null , UpdFlag is null , UpdAprvFlag is null , UpdAprvBy is null WHERE DistID = id";
+			String sql = "UPDATE VOTE SET AprvFlag = 'true' , AprvBy = updatedBy , UpdBy is null , UpdFlag is null , UpdAprvFlag is null , UpdAprvBy is null WHERE DistID = id";
 		}
 		else {
 			String sql = "UPDATE VOTE SET AprvFlag = 'false' , AprvBy is null , UpdBy is null , UpdFlag is null , UpdAprvFlag is null , UpdAprvBy is null WHERE DistID = id";
@@ -41,7 +41,7 @@ public class CenterPointDaoImpl extends AbsCorDao implements CenterPointDao {
 	}
 
 	@Override
-	public void replyRequestedModifications(int id, boolean isApproved) {
+	public void replyRequestedModifications(int id, boolean isApproved, String updatedBy) {
 		
 	}
 
