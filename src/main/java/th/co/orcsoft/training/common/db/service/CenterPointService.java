@@ -8,5 +8,5 @@ public interface CenterPointService {
 	public List<VoteModel> getRequestedConfirmations();
 	public List<VoteModel> getRequestedModifications();
 	public void replyRequestedConfirmations(int id, boolean isApproved);
-	public void replyRequestedModifications(int id, boolean isApproved);
+	public void replyRequestedModifications(int id, boolean isApproved,String updateBy);
 }
