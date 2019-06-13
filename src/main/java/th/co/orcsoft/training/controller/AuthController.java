@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javassist.NotFoundException;
 import th.co.orcsoft.training.common.db.service.AuthService;
 import th.co.orcsoft.training.common.db.service.PartyService;
+import th.co.orcsoft.training.controller.common.BaseController;
 import th.co.orcsoft.training.model.common.AbsResponseModel;
 import th.co.orcsoft.training.model.common.auth.request.RequestAuthorization;
 import th.co.orcsoft.training.model.common.auth.response.GetAuthorization;
@@ -27,7 +28,7 @@ import th.co.orcsoft.training.model.db.UsersModel;
 @RestController
 @RequestMapping(value = "/api/user")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class AuthController {
+public class AuthController extends BaseController {
 
 	@Autowired
 	private AuthService authService;
@@ -42,12 +43,13 @@ public class AuthController {
 		return getAuthorization;
 	}
 	
-	@RequestMapping(value = "getProfile", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
-	public @ResponseBody AbsResponseModel getProfile(int id, HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "getProfile", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
+	public @ResponseBody AbsResponseModel getProfile(HttpServletRequest request, HttpServletResponse response) {
 		
 		GetAuthorization getAuthorization = new GetAuthorization();
 		
-		UsersModel user = authService.getUserProfile(id);
+		int userId = this.getUserIdByHeader(request);
+		UsersModel user = authService.getUserProfile(userId);
 		getAuthorization.setUser(user);
 		return getAuthorization;
 	}
