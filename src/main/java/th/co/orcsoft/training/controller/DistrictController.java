@@ -51,12 +51,12 @@ public class DistrictController extends BaseController {
 	}
 	
 	@RequestMapping(value = "updateElectionDistrict", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
-	public @ResponseBody AbsResponseModel updateElectionDistrict(@RequestBody int prvId, int distNum, int pty1Id, int pty1Vote, int pty2Id, int pty2Vote, int pty3Id, int pty3Vote, double badVote, double voteNo, HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody AbsResponseModel updateElectionDistrict(@RequestBody RequestCreateNewDistrictElection requestBody, HttpServletRequest request, HttpServletResponse response) {
 		
 		int userId = this.getUserIdByHeader(request);
 		AuthServiceImpl authServiceImpl = new AuthServiceImpl();
-		UsersModel usersModel = authServiceImpl.getUserProfile(userId);
-		districtService.updateElectionDistrict(prvId, distNum, pty1Id, pty1Vote, pty2Id, pty2Vote, pty3Id, pty3Vote, badVote, voteNo, usersModel.getLogin());
+		UsersModel userProfile = authServiceImpl.getUserProfile(userId);
+		districtService.updateElectionDistrict(requestBody.getPrvId(), requestBody.getDistNum(), requestBody.getPty1Id(), requestBody.getPty1Vote(), requestBody.getPty2Id(), requestBody.getPty2Vote(), requestBody.getPty3Id(), requestBody.getPty3Vote(), requestBody.getBadVote(), requestBody.getVoteNo(), userProfile.getLogin());
 
 		return null;
 	}
