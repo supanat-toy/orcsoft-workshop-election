@@ -18,8 +18,8 @@ import th.co.orcsoft.training.common.db.service.AuthService;
 import th.co.orcsoft.training.common.db.service.CenterPointService;
 import th.co.orcsoft.training.controller.common.BaseController;
 import th.co.orcsoft.training.model.common.AbsResponseModel;
-import th.co.orcsoft.training.model.common.center.response.GetRequestedConfirmations;
-import th.co.orcsoft.training.model.common.center.response.GetRequestedModifications;
+import th.co.orcsoft.training.model.common.center.response.GetConfirmations;
+import th.co.orcsoft.training.model.common.center.response.GetModifications;
 import th.co.orcsoft.training.model.db.UsersModel;
 import th.co.orcsoft.training.model.db.VoteModel;
 
@@ -34,24 +34,24 @@ public class CenterPointController extends BaseController {
 	@Autowired
 	private AuthService authService;
 
-	@RequestMapping(value = "getRequestedConfirmations", produces = {
+	@RequestMapping(value = "getConfirmations", produces = {
 			MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody AbsResponseModel getRequestedConfirmations(HttpServletRequest request,
 			HttpServletResponse response) {
-		GetRequestedConfirmations getRequestedConfirmations = new GetRequestedConfirmations();
-		getRequestedConfirmations.setListRequestCon(centerPointService.getRequestedConfirmations());
+		GetConfirmations getConfirmations = new GetConfirmations();
+		getConfirmations.setListRequestCon(centerPointService.getRequestedConfirmations());
 
-		return getRequestedConfirmations;
+		return getConfirmations;
 	}
 
-	@RequestMapping(value = "getRequestedModifications", produces = {
+	@RequestMapping(value = "getModifications", produces = {
 			MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody AbsResponseModel getRequestedModifications(HttpServletRequest request,
 			HttpServletResponse response) {
 		
-		GetRequestedModifications getRequestedModifications = new GetRequestedModifications();
-		getRequestedModifications.setListRequestModi(centerPointService.getRequestedModifications());
-		return getRequestedModifications;
+		GetModifications getModifications = new GetModifications();
+		getModifications.setListRequestModi(centerPointService.getRequestedModifications());
+		return getModifications;
 	}
 
 	@RequestMapping(value = "replyRequestedConfirmation", produces = {
@@ -64,7 +64,7 @@ public class CenterPointController extends BaseController {
 		centerPointService.replyRequestedConfirmations(districtId, isApproved, userProfile.getLogin());
 		return null;
 	}
-
+	
 	@RequestMapping(value = "replyRequestedModification", produces = {
 			MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
 	public @ResponseBody AbsResponseModel replyRequestedModification(@RequestBody int districtId, boolean isApproved,
@@ -73,7 +73,7 @@ public class CenterPointController extends BaseController {
 		int userId = this.getUserIdByHeader(response);
 		UsersModel userProfile = this.authService.getUserProfile(userId);
 		centerPointService.replyRequestedModifications(districtId, isApproved, userProfile.getLogin());
-
 		return null;
 	}
+	
 }
