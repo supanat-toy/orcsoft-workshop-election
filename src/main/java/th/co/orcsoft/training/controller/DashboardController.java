@@ -66,7 +66,7 @@ public class DashboardController extends BaseController {
 	@RequestMapping(value = "getElectionPartyDistricts", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody GetElectionPartyDistricts getElectionPartyDistricts(int provinceId, HttpServletRequest request, HttpServletResponse response) {
 		
-		int userId = this.getUserIdByHeader(response);
+		int userId = this.getUserIdByHeader(request);
 		GetElectionPartyDistricts electionPartyDistricts = new GetElectionPartyDistricts();
 		electionPartyDistricts.setGetElectionPartyDistrictsList(dashboardService.getElectionPartyDistricts(provinceId));
 		
@@ -76,7 +76,7 @@ public class DashboardController extends BaseController {
 	@RequestMapping(value = "getElectionPartyRegion", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody GetElectionPartyRegion getElectionPartyRegion(int regionId, HttpServletRequest request, HttpServletResponse response) {
 		
-		int userId = this.getUserIdByHeader(response);
+		int userId = this.getUserIdByHeader(request);
 		GetElectionPartyRegion electionPartyRegion = new GetElectionPartyRegion();
 		electionPartyRegion.setGetElectionPartyRegionList(dashboardService.getElectionPartyRegion(regionId));
 		 
@@ -96,7 +96,7 @@ public class DashboardController extends BaseController {
 	@RequestMapping(value = "getSummaryElectionPartyDistricts", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody GetSummaryElectionPartyDistricts getSummaryElectionPartyDistricts(int provinceId, HttpServletRequest request, HttpServletResponse response) {
 		
-		int userId = this.getUserIdByHeader(response);
+		int userId = this.getUserIdByHeader(request);
 		GetSummaryElectionPartyDistricts summaryElectionPartyDistricts = new GetSummaryElectionPartyDistricts();
 		summaryElectionPartyDistricts.setGetSummaryElectionPartyDistricts(dashboardService.getSummaryElectionPartyDistricts(provinceId));	 
 		return summaryElectionPartyDistricts;
