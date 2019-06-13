@@ -18,6 +18,8 @@ import th.co.orcsoft.training.common.db.service.AuthService;
 import th.co.orcsoft.training.common.db.service.CenterPointService;
 import th.co.orcsoft.training.controller.common.BaseController;
 import th.co.orcsoft.training.model.common.AbsResponseModel;
+import th.co.orcsoft.training.model.common.center.request.RequestedConfirmation;
+import th.co.orcsoft.training.model.common.center.request.RequestedModification;
 import th.co.orcsoft.training.model.common.center.response.GetConfirmations;
 import th.co.orcsoft.training.model.common.center.response.GetModifications;
 import th.co.orcsoft.training.model.db.UsersModel;
@@ -34,7 +36,7 @@ public class CenterPointController extends BaseController {
 	@Autowired
 	private AuthService authService;
 
-	@RequestMapping(value = "getConfirmations", produces = {
+	@RequestMapping(value = "getRequestedConfirmations", produces = {
 			MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody AbsResponseModel getRequestedConfirmations(HttpServletRequest request,
 			HttpServletResponse response) {
@@ -44,7 +46,7 @@ public class CenterPointController extends BaseController {
 		return getConfirmations;
 	}
 
-	@RequestMapping(value = "getModifications", produces = {
+	@RequestMapping(value = "getRequestedModifications", produces = {
 			MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody AbsResponseModel getRequestedModifications(HttpServletRequest request,
 			HttpServletResponse response) {
@@ -56,23 +58,23 @@ public class CenterPointController extends BaseController {
 
 	@RequestMapping(value = "replyRequestedConfirmation", produces = {
 			MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
-	public @ResponseBody AbsResponseModel replyRequestedConfirmation(@RequestBody int districtId, boolean isApproved,
+	public @ResponseBody AbsResponseModel replyRequestedConfirmation(@RequestBody RequestedConfirmation requestBody,
 			HttpServletRequest request, HttpServletResponse response) {
 
 		int userId = this.getUserIdByHeader(request);
 		UsersModel userProfile = this.authService.getUserProfile(userId);
-		centerPointService.replyRequestedConfirmations(districtId, isApproved, userProfile.getLogin());
+		centerPointService.replyRequestedConfirmations(requestBody.getDistrictId(), requestBody.isApproved(), userProfile.getLogin());
 		return null;
 	}
 	
 	@RequestMapping(value = "replyRequestedModification", produces = {
 			MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
-	public @ResponseBody AbsResponseModel replyRequestedModification(@RequestBody int districtId, boolean isApproved,
+	public @ResponseBody AbsResponseModel replyRequestedModification(@RequestBody RequestedModification requestBody,
 			HttpServletRequest request, HttpServletResponse response) {
 
 		int userId = this.getUserIdByHeader(request);
 		UsersModel userProfile = this.authService.getUserProfile(userId);
-		centerPointService.replyRequestedModifications(districtId, isApproved, userProfile.getLogin());
+		centerPointService.replyRequestedModifications(requestBody.getDistrictId(), requestBody.isApproved(), userProfile.getLogin());
 		return null;
 	}
 	

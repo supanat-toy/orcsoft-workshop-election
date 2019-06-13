@@ -4,14 +4,21 @@ import th.co.orcsoft.training.model.common.AbsRequestModel;
 
 public class RequestedConfirmation extends AbsRequestModel{
 	
-	private int userId;
-
-	public int getUserId() {
-		return userId;
+	private boolean isApproved;
+	private int districtId;
+	
+	public boolean isApproved() {
+		return isApproved;
 	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setApproved(boolean isApproved) {
+		this.isApproved = isApproved;
 	}
+	public int getDistrictId() {
+		return districtId;
+	}
+	public void setDistrictId(int districtId) {
+		this.districtId = districtId;
+	}
+	
 
 }
