@@ -54,8 +54,7 @@ public class DistrictController extends BaseController {
 	public @ResponseBody AbsResponseModel updateElectionDistrict(@RequestBody RequestCreateNewDistrictElection requestBody, HttpServletRequest request, HttpServletResponse response) {
 		
 		int userId = this.getUserIdByHeader(request);
-		AuthServiceImpl authServiceImpl = new AuthServiceImpl();
-		UsersModel userProfile = authServiceImpl.getUserProfile(userId);
+		UsersModel userProfile = authService.getUserProfile(userId);
 		districtService.updateElectionDistrict(requestBody.getPrvId(), requestBody.getDistNum(), requestBody.getPty1Id(), requestBody.getPty1Vote(), requestBody.getPty2Id(), requestBody.getPty2Vote(), requestBody.getPty3Id(), requestBody.getPty3Vote(), requestBody.getBadVote(), requestBody.getVoteNo(), userProfile.getLogin());
 
 		return null;
