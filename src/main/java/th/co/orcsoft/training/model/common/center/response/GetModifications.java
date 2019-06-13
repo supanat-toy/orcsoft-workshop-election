@@ -5,7 +5,7 @@ import java.util.List;
 import th.co.orcsoft.training.model.common.AbsResponseModel;
 import th.co.orcsoft.training.model.db.VoteModel;
 
-public class GetRequestedModifications extends AbsResponseModel {
+public class GetModifications extends AbsResponseModel {
 	private List<VoteModel> listRequestModi;
 
 	public List<VoteModel> getListRequestModi() {
