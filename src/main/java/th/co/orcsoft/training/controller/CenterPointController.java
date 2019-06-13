@@ -59,7 +59,7 @@ public class CenterPointController extends BaseController {
 	public @ResponseBody AbsResponseModel replyRequestedConfirmation(@RequestBody int districtId, boolean isApproved,
 			HttpServletRequest request, HttpServletResponse response) {
 
-		int userId = this.getUserIdByHeader(response);
+		int userId = this.getUserIdByHeader(request);
 		UsersModel userProfile = this.authService.getUserProfile(userId);
 		centerPointService.replyRequestedConfirmations(districtId, isApproved, userProfile.getLogin());
 		return null;
@@ -70,7 +70,7 @@ public class CenterPointController extends BaseController {
 	public @ResponseBody AbsResponseModel replyRequestedModification(@RequestBody int districtId, boolean isApproved,
 			HttpServletRequest request, HttpServletResponse response) {
 
-		int userId = this.getUserIdByHeader(response);
+		int userId = this.getUserIdByHeader(request);
 		UsersModel userProfile = this.authService.getUserProfile(userId);
 		centerPointService.replyRequestedModifications(districtId, isApproved, userProfile.getLogin());
 		return null;

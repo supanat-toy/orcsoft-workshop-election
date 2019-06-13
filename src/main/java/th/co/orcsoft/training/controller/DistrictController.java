@@ -22,6 +22,7 @@ import th.co.orcsoft.training.common.db.service.PartyService;
 import th.co.orcsoft.training.common.db.service.impl.AuthServiceImpl;
 import th.co.orcsoft.training.controller.common.BaseController;
 import th.co.orcsoft.training.model.common.AbsResponseModel;
+import th.co.orcsoft.training.model.common.district.request.RequestCreateNewDistrictElection;
 import th.co.orcsoft.training.model.common.district.response.GetElectionDistricts;
 import th.co.orcsoft.training.model.common.district.response.GetResultRequestedModiResponse;
 import th.co.orcsoft.training.model.common.party.response.GetAllPartyResponse;
@@ -40,11 +41,11 @@ public class DistrictController extends BaseController {
 	private AuthService authService;
 	
 	@RequestMapping(value = "createElectionDistinct", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
-	public @ResponseBody AbsResponseModel createElectionDistinct(int prvId, int distNum, int pty1Id, int pty1Vote, int pty2Id, int pty2Vote, int pty3Id, int pty3Vote, double badVote, double voteNo, HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody AbsResponseModel createElectionDistinct(@RequestBody RequestCreateNewDistrictElection requestBody, HttpServletRequest request, HttpServletResponse response) {
 		
-		int userId = this.getUserIdByHeader(response);
+		int userId = this.getUserIdByHeader(request);
 		UsersModel userProfile = authService.getUserProfile(userId);
-		districtService.createElectionDistrict(prvId, distNum, pty1Id, pty1Vote, pty2Id, pty2Vote, pty3Id, pty3Vote, badVote, voteNo, userProfile.getLogin());
+		districtService.createElectionDistrict(requestBody.getPrvId(), requestBody.getDistNum(), requestBody.getPty1Id(), requestBody.getPty1Vote(), requestBody.getPty2Id(), requestBody.getPty2Vote(), requestBody.getPty3Id(), requestBody.getPty3Vote(), requestBody.getBadVote(), requestBody.getVoteNo(), userProfile.getLogin());
 
 		return new AbsResponseModel() {};
 	}
@@ -52,7 +53,7 @@ public class DistrictController extends BaseController {
 	@RequestMapping(value = "updateElectionDistrict", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
 	public @ResponseBody AbsResponseModel updateElectionDistrict(@RequestBody int prvId, int distNum, int pty1Id, int pty1Vote, int pty2Id, int pty2Vote, int pty3Id, int pty3Vote, double badVote, double voteNo, HttpServletRequest request, HttpServletResponse response) {
 		
-		int userId = this.getUserIdByHeader(response);
+		int userId = this.getUserIdByHeader(request);
 		AuthServiceImpl authServiceImpl = new AuthServiceImpl();
 		UsersModel usersModel = authServiceImpl.getUserProfile(userId);
 		districtService.updateElectionDistrict(prvId, distNum, pty1Id, pty1Vote, pty2Id, pty2Vote, pty3Id, pty3Vote, badVote, voteNo, usersModel.getLogin());
@@ -72,7 +73,7 @@ public class DistrictController extends BaseController {
 	@RequestMapping(value = "requestToModifiedElectionResult", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
 	public @ResponseBody AbsResponseModel requestToModifiedElectionResult(@RequestBody int districtId, HttpServletRequest request, HttpServletResponse response) {
 		
-		int userId = this.getUserIdByHeader(response);
+		int userId = this.getUserIdByHeader(request);
 		AuthService user = new AuthServiceImpl();
 		UsersModel userProfile = user.getUserProfile(userId);
 		String updBy = userProfile.getLogin();
