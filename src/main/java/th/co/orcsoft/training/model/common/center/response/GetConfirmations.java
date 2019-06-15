@@ -5,8 +5,8 @@ import java.util.List;
 import th.co.orcsoft.training.model.common.AbsResponseModel;
 import th.co.orcsoft.training.model.db.VoteModel;
 
-public class GetConfirmations extends AbsResponseModel{
-	 private List<VoteModel> listRequestCon;
+public class GetConfirmations extends AbsResponseModel {
+	private List<VoteModel> listRequestCon;
 
 	public List<VoteModel> getListRequestCon() {
 		return listRequestCon;
@@ -14,5 +14,5 @@ public class GetConfirmations extends AbsResponseModel{
 
 	public void setListRequestCon(List<VoteModel> listRequestCon) {
 		this.listRequestCon = listRequestCon;
-	} 
+	}
 }

@@ -7,7 +7,7 @@ import th.co.orcsoft.training.model.db.PartyModel;
 import th.co.orcsoft.training.model.db.VoteModel;
 
 public class GetResultRequestedModiResponse extends AbsResponseModel {
-	
+
 	private List<VoteModel> voteList;
 
 	public List<VoteModel> getVoteList() {
