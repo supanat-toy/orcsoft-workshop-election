@@ -2,18 +2,18 @@ package th.co.orcsoft.training.model.db;
 
 public class PartyModel {
 
-	private String ptyId;
+	private int ptyId;
 	private String ptyName;
 	private String ptyAbbr;
 	private String logo;
 	private String ptyNameTh;
 	private String ptyAbbrTh;
 
-	public String getPtyId() {
+	public int getPtyId() {
 		return ptyId;
 	}
 
-	public void setPtyId(String ptyId) {
+	public void setPtyId(int ptyId) {
 		this.ptyId = ptyId;
 	}
 
