@@ -5,6 +5,14 @@ public class GetElectionPartyRegionModel {
 	private int ptyID;
 	private int mHR;
 	private String ptyName;
+	private String ptyAbbr;
+	
+	public String getPtyAbbr() {
+		return ptyAbbr;
+	}
+	public void setPtyAbbr(String ptyAbbr) {
+		this.ptyAbbr = ptyAbbr;
+	}
 	private String logo;
 	
 	public int getRgnID() {

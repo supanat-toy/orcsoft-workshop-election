@@ -57,7 +57,8 @@ public class DashboardDaoImpl extends AbsCorDao implements DashboardDao {
 	public List<GetElectionPartyRegionModel> getElectionPartyRegion(int regionId) {
 		String sql = "select SUM_MHR_BY_REGION.*,\r\n" + 
 				"        pty.ptyName as ptyName,\r\n" + 
-				"        pty.Logo as Logo\r\n" + 
+				"        pty.Logo as Logo,\r\n" + 
+				"        pty.ptyAbbr as ptyAbbr\r\n" + 
 				"        FROM SUM_MHR_BY_REGION\r\n" + 
 				"        INNER JOIN party as pty\r\n" + 
 				"                ON SUM_MHR_BY_REGION.PtyID = pty.PtyID\r\n" + 
@@ -101,6 +102,7 @@ public class DashboardDaoImpl extends AbsCorDao implements DashboardDao {
 	@Override
 	public List<GetSummaryElectionPartyDistrictsModel> getSummaryElectionPartyDistricts(int provinceId) {
 		String sql = "select SUM_MHR_BY_PROVINCE.*,\r\n" + 
+				"        pty.ptyID as ptyID,\r\n" + 
 				"        pty.ptyName as ptyName,\r\n" + 
 				"        pty.Logo as Logo,\r\n" + 
 				"        pty.ptyAbbr as ptyAbbr\r\n" + 

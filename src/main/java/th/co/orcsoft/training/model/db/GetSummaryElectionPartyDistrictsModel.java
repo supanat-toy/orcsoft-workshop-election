@@ -3,9 +3,16 @@ package th.co.orcsoft.training.model.db;
 public class GetSummaryElectionPartyDistrictsModel {
 	private String ptyName;
 	private int mHR;
+	private int ptyID;
 	private String ptyAbbr;
 	private String logo;
 	
+	public int getPtyID() {
+		return ptyID;
+	}
+	public void setPtyID(int ptyID) {
+		this.ptyID = ptyID;
+	}
 	public String getPtyName() {
 		return ptyName;
 	}
