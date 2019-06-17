@@ -12,7 +12,7 @@ public class AuthServiceImpl implements AuthService {
 
 	@Autowired
 	private AuthDao authDao;
-	
+
 	@Override
 	public UsersModel login(String username, String password) {
 		UsersModel user = authDao.login(username, password);

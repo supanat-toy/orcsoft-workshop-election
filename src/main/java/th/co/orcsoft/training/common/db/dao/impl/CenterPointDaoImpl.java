@@ -1,4 +1,5 @@
 package th.co.orcsoft.training.common.db.dao.impl;
+
 import java.util.List;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -13,76 +14,75 @@ import th.co.orcsoft.training.model.db.VoteModel;
 @Repository
 public class CenterPointDaoImpl extends AbsCorDao implements CenterPointDao {
 
-	
 	@Override
 	public List<VoteModel> getRequestedConfirmations() {
 		String sql = "SELECT * FROM Vote WHERE AprvFlag is null AND UpdFlag = 'true' AND UpdAprvFlag is null ";
-		List<VoteModel> list = namedParameterJdbcTemplate.query(sql, new BeanPropertyRowMapper<VoteModel>(VoteModel.class));
+		List<VoteModel> list = namedParameterJdbcTemplate.query(sql,
+				new BeanPropertyRowMapper<VoteModel>(VoteModel.class));
 		return list;
 	}
 
 	@Override
 	public List<VoteModel> getRequestedModifications() {
-		String sql = "SELECT * FROM VOTE WHERE AprvFlag = 'true' "
-				+ "AND UpdFlag = 'true'"
+		String sql = "SELECT * FROM VOTE WHERE AprvFlag = 'true' " + "AND UpdFlag = 'true'"
 				+ "AND UpdAprvFlag is null ";
-		List<VoteModel> list = namedParameterJdbcTemplate.query(sql, new BeanPropertyRowMapper<VoteModel>(VoteModel.class));
+		List<VoteModel> list = namedParameterJdbcTemplate.query(sql,
+				new BeanPropertyRowMapper<VoteModel>(VoteModel.class));
 		System.out.println(list);
 		return list;
 	}
 
 	@Override
 	public void replyRequestedConfirmations(int districtId, boolean isApproved, String updatedBy) {
-		if(isApproved) {
-			String sql = "UPDATE VOTE SET AprvFlag = 'true' , AprvBy = '"+updatedBy+"' WHERE DistID = "+districtId+"";
+		if (isApproved) {
+			String sql = "UPDATE VOTE SET AprvFlag = 'true' , AprvBy = '" + updatedBy + "' WHERE DistID = " + districtId
+					+ "";
 			SqlParameterSource namedParameters = new MapSqlParameterSource();
-			int status = namedParameterJdbcTemplate.update(sql, namedParameters); 
-	        if(status != 0){
-	            System.out.println(" data updated for distID "+districtId);
-	        }else{
-	            System.out.println(" Not data update ");
-	        }
-		}
-		else {
-			String sql = "UPDATE VOTE SET AprvFlag = 'false' , AprvBy = '"+updatedBy+"' WHERE DistID = "+districtId+"";
+			int status = namedParameterJdbcTemplate.update(sql, namedParameters);
+			if (status != 0) {
+				System.out.println(" data updated for distID " + districtId);
+			} else {
+				System.out.println(" Not data update ");
+			}
+		} else {
+			String sql = "UPDATE VOTE SET AprvFlag = 'false' , AprvBy = '" + updatedBy + "' WHERE DistID = "
+					+ districtId + "";
 			SqlParameterSource namedParameters = new MapSqlParameterSource();
-			int status = namedParameterJdbcTemplate.update(sql, namedParameters); 
-	        if(status != 0){
-	            System.out.println(" data updated for distID "+districtId);
-	        }else{
-	            System.out.println(" Not data update ");
-	        }
+			int status = namedParameterJdbcTemplate.update(sql, namedParameters);
+			if (status != 0) {
+				System.out.println(" data updated for distID " + districtId);
+			} else {
+				System.out.println(" Not data update ");
+			}
 		}
 	}
 
 	@Override
-	public void replyRequestedModifications(int districtId, boolean isApproved,String updateBy) {
+	public void replyRequestedModifications(int districtId, boolean isApproved, String updateBy) {
 		if (isApproved = true) {
-			String sql = "UPDATE VOTE SET UpdAprvBy = '"+updateBy+"'"
-					+ ", updAprvFlag ='true' "
-					+ "WHERE DistID = "+districtId+" "; 
-			
+			String sql = "UPDATE VOTE SET UpdAprvBy = '" + updateBy + "'" + ", updAprvFlag ='true' " + "WHERE DistID = "
+					+ districtId + " ";
+
 			SqlParameterSource namedParameters = new MapSqlParameterSource();
-			int status =  namedParameterJdbcTemplate.update(sql, namedParameters);
-				if(status != 0){
-					System.out.println("data updated for distId"+districtId);
-				}else{
-					System.out.println("Not data updated for distId"+districtId);
-				}		
-				
-		}else {
-			String sql = "UPDATE VOTE SET UpdAprvBy = '"+updateBy+"'"
-					+ ", UpdAprvFlag = 'false' "
-					+ "WHERE DistID = "+districtId+" ";
-			
+			int status = namedParameterJdbcTemplate.update(sql, namedParameters);
+			if (status != 0) {
+				System.out.println("data updated for distId" + districtId);
+			} else {
+				System.out.println("Not data updated for distId" + districtId);
+			}
+
+		} else {
+			String sql = "UPDATE VOTE SET UpdAprvBy = '" + updateBy + "'" + ", UpdAprvFlag = 'false' "
+					+ "WHERE DistID = " + districtId + " ";
+
 			SqlParameterSource namedParameters = new MapSqlParameterSource();
-			int status =  namedParameterJdbcTemplate.update(sql, namedParameters);
-			 	if(status != 0){
-			 		System.out.println("data updated for distId"+districtId);
-				}else{
-					System.out.println("Not data updated for distId"+districtId);
-				}			
-			 	
+			int status = namedParameterJdbcTemplate.update(sql, namedParameters);
+			if (status != 0) {
+				System.out.println("data updated for distId" + districtId);
+			} else {
+				System.out.println("Not data updated for distId" + districtId);
+			}
+
 		}
 	}
 

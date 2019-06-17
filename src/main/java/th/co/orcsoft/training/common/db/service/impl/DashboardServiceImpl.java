@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import th.co.orcsoft.training.common.db.dao.DashboardDao;
-import th.co.orcsoft.training.common.db.service.AuthService;
 import th.co.orcsoft.training.common.db.service.DashboardService;
 import th.co.orcsoft.training.model.db.GetElectionPartyDistrictsModel;
 import th.co.orcsoft.training.model.db.GetElectionPartyRegionModel;
@@ -20,7 +19,7 @@ public class DashboardServiceImpl implements DashboardService {
 
 	@Autowired
 	private DashboardDao dashboardDao;
-	
+
 	@Override
 	public List<ProvinceModel> getProvinces() {
 		return dashboardDao.getProvinces();
@@ -35,18 +34,16 @@ public class DashboardServiceImpl implements DashboardService {
 	public List<GetElectionPartyDistrictsModel> getElectionPartyDistricts(int provinceId) {
 		return dashboardDao.getElectionPartyDistricts(provinceId);
 	}
-	
+
 	@Override
 	public List<GetElectionPartyRegionModel> getElectionPartyRegion(int regionId) {
 		return dashboardDao.getElectionPartyRegion(regionId);
 	}
-	
+
 	@Override
 	public List<GetSummaryElectionPartyDistrictsModel> getSummaryElectionPartyDistricts(int provinceId) {
 		return dashboardDao.getSummaryElectionPartyDistricts(provinceId);
 	}
-	
-
 
 	@Override
 	public ArrayList<Integer> getNotApprovedDistrictsByProvince(int provinceId) {

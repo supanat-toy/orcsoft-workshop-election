@@ -11,10 +11,10 @@ import th.co.orcsoft.training.model.db.NotificationModel;
 
 @Service
 public class NotificationServiceImpl implements NotificationService {
-	
+
 	@Autowired
 	public NotificationDao notificationDao;
-	
+
 	@Override
 	public List<NotificationModel> getNotificationList(boolean isOfficer) {
 		return notificationDao.getNotificationList(isOfficer);

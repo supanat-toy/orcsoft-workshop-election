@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import th.co.orcsoft.training.common.db.dao.CenterPointDao;
-import th.co.orcsoft.training.common.db.service.AuthService;
 import th.co.orcsoft.training.common.db.service.CenterPointService;
 import th.co.orcsoft.training.model.db.VoteModel;
 
@@ -15,7 +14,7 @@ public class CenterPointServiceImpl implements CenterPointService {
 
 	@Autowired
 	private CenterPointDao centerPointDao;
-	
+
 	@Override
 	public List<VoteModel> getRequestedConfirmations() {
 		return centerPointDao.getRequestedConfirmations();
@@ -32,8 +31,8 @@ public class CenterPointServiceImpl implements CenterPointService {
 	}
 
 	@Override
-	public void replyRequestedModifications(int provinceID, boolean isApproved,String updateBy) {
-		centerPointDao.replyRequestedModifications(provinceID, isApproved,updateBy);
+	public void replyRequestedModifications(int provinceID, boolean isApproved, String updateBy) {
+		centerPointDao.replyRequestedModifications(provinceID, isApproved, updateBy);
 	}
 
 }
