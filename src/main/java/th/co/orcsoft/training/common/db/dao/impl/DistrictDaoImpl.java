@@ -16,7 +16,7 @@ public class DistrictDaoImpl extends AbsCorDao implements DistrictDao {
 
 	@Override
 	public VoteModel getElectionDistrictInfo(int districtId) {
-		String sql = "SELECT TOP 1 * FROM VOTE WHERE DistID = :DistID";
+		String sql = "SELECT * FROM VOTE WHERE DistID = :DistID";
 		
 		MapSqlParameterSource paramMap = new MapSqlParameterSource("DistID", districtId);
 
@@ -68,9 +68,9 @@ public class DistrictDaoImpl extends AbsCorDao implements DistrictDao {
 	public boolean updateElectionDistrict(int prvId, int distNum, int pty1Id, int pty1Vote, int pty2Id, int pty2Vote, int pty3Id,
 			int pty3Vote, double badVote, double voteNo, String updBy) {
 		
-		String sql = "UPDATE Vote SET pty1_Id = :Pty1_ID, pty1Vote = :Pty1Vote, pty2_Id = :Pty2_ID, pty2Vote = :Pty2Vote, pty3_Id = :Pty3_ID, pty3Vote = :Pty3Vote, " + 
+		String sql = "Update Vote SET pty1_Id = :Pty1_ID, pty1Vote = :Pty1Vote, pty2_Id = :Pty2_ID, pty2Vote = :Pty2Vote, pty3_Id = :Pty3_ID, pty3Vote = :Pty3Vote, " + 
 					 "badVote = :BadVote, voteNo = :VoteNo, updFlag = :UpdFlag, updBy = :UpdBy " +
-					 "WHERE prvId = :PrvID AND distNum = :DistNum ";
+					 "Where prvId = :PrvID AND distNum = :DistNum ";
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("PrvID", prvId);
@@ -136,7 +136,7 @@ public class DistrictDaoImpl extends AbsCorDao implements DistrictDao {
 		try {
 			resultRequestModifications = namedParameterJdbcTemplate.query(sql, paramMap, new BeanPropertyRowMapper<VoteModel>(VoteModel.class));
 		} catch (Exception e) {
-			System.out.println("catch - getElectionDistrictInfo() -> " + e.toString());
+			System.out.println("catch - getResultRequestModifications() -> " + e.toString());
 		}
 
 		return resultRequestModifications;

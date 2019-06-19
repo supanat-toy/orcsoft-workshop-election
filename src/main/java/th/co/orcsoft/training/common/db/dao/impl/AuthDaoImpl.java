@@ -14,7 +14,7 @@ public class AuthDaoImpl extends AbsCorDao implements AuthDao {
 
 	@Override
 	public UsersModel login(String username, String password) {
-		String sql = "SELECT TOP 1 * FROM USERS WHERE Login = :username and Pwd = :password";
+		String sql = "Select * From Users Where Login = :username and Pwd = :password";
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("username", username);
@@ -32,7 +32,7 @@ public class AuthDaoImpl extends AbsCorDao implements AuthDao {
 
 	@Override
 	public UsersModel getUserProfile(int id) {
-		String sql = "SELECT TOP 1 * FROM USERS WHERE UID = :UID";
+		String sql = "Select * From Users Where UID = :UID";
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("UID", id);
