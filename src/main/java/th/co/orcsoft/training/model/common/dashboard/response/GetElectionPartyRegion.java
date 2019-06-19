@@ -2,17 +2,12 @@ package th.co.orcsoft.training.model.common.dashboard.response;
 
 import java.util.List;
 
+import lombok.Data;
 import th.co.orcsoft.training.model.db.GetElectionPartyRegionModel;
 
+@Data
 public class GetElectionPartyRegion {
-private List<GetElectionPartyRegionModel> ElectionPartyRegionList;
 	
-	
-	public List<GetElectionPartyRegionModel> getElectionPartyRegionList() {
-		return ElectionPartyRegionList;
-	}
+	private List<GetElectionPartyRegionModel> ElectionPartyRegionList;
 
-	public void setGetElectionPartyRegionList(List<GetElectionPartyRegionModel> ElectionPartyRegionList) {
-		this.ElectionPartyRegionList = ElectionPartyRegionList;
-	}
 }

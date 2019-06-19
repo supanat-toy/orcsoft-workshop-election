@@ -1,5 +1,8 @@
 package th.co.orcsoft.training.model.db;
 
+import lombok.Data;
+
+@Data
 public class SumTotalVote {
 	
 	private int ptyID;

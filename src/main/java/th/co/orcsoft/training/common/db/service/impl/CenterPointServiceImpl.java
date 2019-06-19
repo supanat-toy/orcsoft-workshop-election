@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import th.co.orcsoft.training.common.db.dao.CenterPointDao;
-import th.co.orcsoft.training.common.db.service.AuthService;
 import th.co.orcsoft.training.common.db.service.CenterPointService;
 import th.co.orcsoft.training.model.db.VoteModel;
 

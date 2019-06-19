@@ -1,5 +1,6 @@
 package th.co.orcsoft.training.common.db.dao.impl;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
@@ -13,24 +14,37 @@ public class AuthDaoImpl extends AbsCorDao implements AuthDao {
 
 	@Override
 	public UsersModel login(String username, String password) {
-		String sql = String.format("SELECT TOP 1 * FROM USERS WHERE Login = '%s' and Pwd = '%s'", username, password);
-		List<UsersModel> userList = namedParameterJdbcTemplate.query(sql, new BeanPropertyRowMapper<UsersModel>(UsersModel.class));
-
-		if (userList.size() > 0) {
-			return userList.get(0) ;
+		String sql = "SELECT TOP 1 * FROM USERS WHERE Login = :username and Pwd = :password";
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("username", username);
+		paramMap.put("password", password);
+		
+		UsersModel user = null;
+		try {
+			user = namedParameterJdbcTemplate.queryForObject(sql, paramMap, new BeanPropertyRowMapper<UsersModel>(UsersModel.class));
+		} catch (Exception e) {
+			System.out.println("catch - login() -> " + e.toString());
 		}
-		return null;
+		
+		return user;
 	}
 
 	@Override
 	public UsersModel getUserProfile(int id) {
-		String sql = String.format("SELECT TOP 1 * FROM USERS WHERE UID = '%s'", id);
-		List<UsersModel> userList = namedParameterJdbcTemplate.query(sql, new BeanPropertyRowMapper<UsersModel>(UsersModel.class));
+		String sql = "SELECT TOP 1 * FROM USERS WHERE UID = :UID";
 
-		if (userList.size() > 0) {
-			return userList.get(0) ;
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("UID", id);
+		
+		UsersModel user = null;
+		try {
+			user = namedParameterJdbcTemplate.queryForObject(sql, paramMap, new BeanPropertyRowMapper<UsersModel>(UsersModel.class));
+		} catch (Exception e) {
+			System.out.println("catch - getUserProfile() -> " + e.toString());
 		}
-		return null;
+		
+		return user;
 	}
 
 }

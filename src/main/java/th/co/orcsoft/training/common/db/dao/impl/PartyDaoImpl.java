@@ -1,5 +1,6 @@
 package th.co.orcsoft.training.common.db.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -14,10 +15,17 @@ public class PartyDaoImpl extends AbsCorDao implements PartyDao {
 
 	@Override
 	public List<PartyModel> getAllParty() {
-		String sql = "SELECT * From party";
-		List<PartyModel> list = namedParameterJdbcTemplate.query(sql,
-				new BeanPropertyRowMapper<PartyModel>(PartyModel.class));
-		return list;
+		String sql = "Select * From Party Order by Party.ptyName";
+
+		List<PartyModel> parties = new ArrayList<PartyModel>();
+		
+		try {
+			parties = namedParameterJdbcTemplate.query(sql, new BeanPropertyRowMapper<PartyModel>(PartyModel.class));
+		} catch (Exception e) {
+			System.out.println("catch - getAllParty() -> " + e.toString());
+		}
+		
+		return parties;
 	}
 
 }

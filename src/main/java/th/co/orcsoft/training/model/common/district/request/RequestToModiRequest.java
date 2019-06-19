@@ -1,16 +1,12 @@
 package th.co.orcsoft.training.model.common.district.request;
 
-import th.co.orcsoft.training.model.common.AbsRequestModel;
+import java.util.List;
 
+import lombok.Data;
+import th.co.orcsoft.training.model.common.AbsRequestModel;
+@Data
 public class RequestToModiRequest extends AbsRequestModel {
  
 	private int districtId;
 
-	public int getDistrictId() {
-		return districtId;
-	}
-
-	public void setDistrictId(int districtId) {
-		this.districtId = districtId;
-	}
 }

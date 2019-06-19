@@ -1,7 +1,5 @@
 package th.co.orcsoft.training.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,7 +21,6 @@ import th.co.orcsoft.training.model.common.center.request.RequestedModification;
 import th.co.orcsoft.training.model.common.center.response.GetConfirmations;
 import th.co.orcsoft.training.model.common.center.response.GetModifications;
 import th.co.orcsoft.training.model.db.UsersModel;
-import th.co.orcsoft.training.model.db.VoteModel;
 
 @RestController
 @RequestMapping(value = "/api/centerpoint")
@@ -40,6 +37,11 @@ public class CenterPointController extends BaseController {
 			MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody AbsResponseModel getRequestedConfirmations(HttpServletRequest request,
 			HttpServletResponse response) {
+		
+		if (isInvalidToken(request, response)) {
+			return null;
+		}
+		
 		GetConfirmations getConfirmations = new GetConfirmations();
 		getConfirmations.setListRequestCon(centerPointService.getRequestedConfirmations());
 
@@ -51,6 +53,10 @@ public class CenterPointController extends BaseController {
 	public @ResponseBody AbsResponseModel getRequestedModifications(HttpServletRequest request,
 			HttpServletResponse response) {
 		
+		if (isInvalidToken(request, response)) {
+			return null;
+		}
+		
 		GetModifications getModifications = new GetModifications();
 		getModifications.setListRequestModi(centerPointService.getRequestedModifications());
 		return getModifications;
@@ -61,6 +67,10 @@ public class CenterPointController extends BaseController {
 	public @ResponseBody AbsResponseModel replyRequestedConfirmation(@RequestBody RequestedConfirmation requestBody,
 			HttpServletRequest request, HttpServletResponse response) {
 
+		if (isInvalidToken(request, response)) {
+			return null;
+		}
+		
 		int userId = this.getUserIdByHeader(request);
 		UsersModel userProfile = this.authService.getUserProfile(userId);
 		centerPointService.replyRequestedConfirmations(requestBody.getDistrictId(), requestBody.isApproved(), userProfile.getLogin());
@@ -72,6 +82,10 @@ public class CenterPointController extends BaseController {
 	public @ResponseBody AbsResponseModel replyRequestedModification(@RequestBody RequestedModification requestBody,
 			HttpServletRequest request, HttpServletResponse response) {
 
+		if (isInvalidToken(request, response)) {
+			return null;
+		}
+		
 		int userId = this.getUserIdByHeader(request);
 		UsersModel userProfile = this.authService.getUserProfile(userId);
 		centerPointService.replyRequestedModifications(requestBody.getDistrictId(), requestBody.isApproved(), userProfile.getLogin());

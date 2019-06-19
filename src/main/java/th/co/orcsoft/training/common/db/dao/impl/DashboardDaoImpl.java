@@ -1,6 +1,8 @@
 package th.co.orcsoft.training.common.db.dao.impl;
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
@@ -19,63 +21,105 @@ public class DashboardDaoImpl extends AbsCorDao implements DashboardDao {
 
 	@Override
 	public List<ProvinceModel> getProvinces() {
-		String sql = "SELECT * FROM PROVINCE";
-		List<ProvinceModel> provinces = namedParameterJdbcTemplate.query(sql, new BeanPropertyRowMapper<ProvinceModel>(ProvinceModel.class));
+		String sql = "Select * From Province";
+		List<ProvinceModel> provinces = new ArrayList<ProvinceModel>();
+		
+		try {
+			provinces = namedParameterJdbcTemplate.query(sql, new BeanPropertyRowMapper<ProvinceModel>(ProvinceModel.class));
+		} catch (Exception e) {
+			System.out.println("catch - getProvinces() -> " + e.toString());
+		}
+		
 		return provinces;
 	}
 
 	@Override
 	public List<RegionModel> getRegions() {
-		String sql = "SELECT * FROM REGION";
-		List<RegionModel> regions = namedParameterJdbcTemplate.query(sql, new BeanPropertyRowMapper<RegionModel>(RegionModel.class));
+		String sql = "Select * From Region";
+		List<RegionModel> regions = new ArrayList<RegionModel>();
+		
+		try {
+			regions = namedParameterJdbcTemplate.query(sql, new BeanPropertyRowMapper<RegionModel>(RegionModel.class));
+		} catch (Exception e) {
+			System.out.println("catch - getRegions() -> " + e.toString());
+		}
+		
 		return regions;
 	}
 
 	@Override
 	public List<GetElectionPartyDistrictsModel> getElectionPartyDistricts(int provinceId) {
-		String sql = "SELECT vote.*,\r\n" + 
-				"        pty1.ptyName as pty1_Name,\r\n" + 
-				"        pty1.Logo as pty1_Logo,\r\n" + 
-				"        pty2.ptyName as pty2_Name,\r\n" + 
-				"        pty2.Logo as pty2_Logo,\r\n" + 
-				"        pty3.ptyName as pty3_Name,\r\n" + 
-				"        pty3.Logo as pty3_Logo\r\n" + 
-				"        FROM vote\r\n" + 
-				"        INNER JOIN party as pty1\r\n" + 
-				"                ON vote.Pty1_ID = pty1.PtyID\r\n" + 
-				"        INNER JOIN party as pty2\r\n" + 
-				"                ON vote.Pty2_ID = pty2.PtyID\r\n" + 
-				"        INNER JOIN party as pty3\r\n" + 
-				"                ON vote.Pty3_ID = pty3.PtyID\r\n" + 
-				"        WHERE vote.PrvID ="+provinceId+" AND AprvFlag = 'true'\r\n" + 
-				"        ORDER BY vote.DistNum;";
-		List<GetElectionPartyDistrictsModel> ElectionPartyDistricts = namedParameterJdbcTemplate.query(sql, new BeanPropertyRowMapper<GetElectionPartyDistrictsModel>(GetElectionPartyDistrictsModel.class));
-		return ElectionPartyDistricts;
+		String sql = "Select vote.*, " + 
+				"     pty1.ptyName as pty1_Name, " + 
+				"     pty1.Logo as pty1_Logo, " + 
+				"     pty2.ptyName as pty2_Name, " + 
+				"     pty2.Logo as pty2_Logo, " + 
+				"     pty3.ptyName as pty3_Name, " + 
+				"     pty3.Logo as pty3_Logo " + 
+				"     From Vote " + 
+				"     Inner Join party as pty1 on vote.Pty1_ID = pty1.PtyID " + 
+				"     Inner Join party as pty2 on vote.Pty2_ID = pty2.PtyID " + 
+				"     Inner Join party as pty3 on vote.Pty3_ID = pty3.PtyID " + 
+				"     Where vote.PrvID = :PrvID and AprvFlag = :AprvFlag " + 
+				"     Order by vote.DistNum;";
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("PrvID", provinceId);
+		paramMap.put("AprvFlag", true);
+		
+		List<GetElectionPartyDistrictsModel> electionPartyDistricts = new ArrayList<GetElectionPartyDistrictsModel>();
+		
+		try {
+			electionPartyDistricts = namedParameterJdbcTemplate.query(sql, paramMap, new BeanPropertyRowMapper<GetElectionPartyDistrictsModel>(GetElectionPartyDistrictsModel.class));
+		} catch (Exception e) {
+			System.out.println("catch - getElectionPartyDistricts() -> " + e.toString());
+		}
+		
+		return electionPartyDistricts;
 	}
 
 	@Override
 	public List<GetElectionPartyRegionModel> getElectionPartyRegion(int regionId) {
-		String sql = "select SUM_MHR_BY_REGION.*,\r\n" + 
-				"        pty.ptyName as ptyName,\r\n" + 
-				"        pty.Logo as Logo,\r\n" + 
-				"        pty.ptyAbbr as ptyAbbr\r\n" + 
-				"        FROM SUM_MHR_BY_REGION\r\n" + 
-				"        INNER JOIN party as pty\r\n" + 
-				"                ON SUM_MHR_BY_REGION.PtyID = pty.PtyID\r\n" + 
-				"        WHERE SUM_MHR_BY_REGION.RgnID ="+regionId+"\r\n" + 
-				"        ORDER BY SUM_MHR_BY_REGION.mHR desc;";
-		List<GetElectionPartyRegionModel> ElectionPartyRegion = namedParameterJdbcTemplate.query(sql, new BeanPropertyRowMapper<GetElectionPartyRegionModel>(GetElectionPartyRegionModel.class));
-		return ElectionPartyRegion;
+		String sql = "Select SUM_MHR_BY_REGION.*, " + 
+				"     pty.ptyName as ptyName, " + 
+				"     pty.Logo as Logo, " + 
+				"     pty.ptyAbbr as ptyAbbr " + 
+				"     From SUM_MHR_BY_REGION " + 
+				"     Inner Join party as pty on SUM_MHR_BY_REGION.PtyID = pty.PtyID " + 
+				"     Where SUM_MHR_BY_REGION.RgnID = :RgnID" + 
+				"     Order By SUM_MHR_BY_REGION.mHR desc";
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("RgnID", regionId);
+		
+		List<GetElectionPartyRegionModel> electionPartyRegion = new ArrayList<GetElectionPartyRegionModel>();
+		
+		try {
+			electionPartyRegion = namedParameterJdbcTemplate.query(sql, paramMap, new BeanPropertyRowMapper<GetElectionPartyRegionModel>(GetElectionPartyRegionModel.class));
+		} catch (Exception e) {
+			System.out.println("catch - getElectionPartyRegion() -> " + e.toString());
+		}
+		
+		return electionPartyRegion;
 	}
 
 	@Override
 	public ArrayList<Integer> getNotApprovedDistrictsByProvince(int provinceId) {
-		String sql = "select Province.PrvID as provinceId, Province.numDist as numberAllDistricts, Vote.DistNum as voteDistrictNumber " + 
-					 "from Province " + 
-					 "left join Vote on Province.PrvID = Vote.PrvID " + 
-					 "where Province.PrvID = " + provinceId;
+		String sql = "Select Province.PrvID as provinceId, Province.numDist as numberAllDistricts, Vote.DistNum as voteDistrictNumber " + 
+					 "From Province " + 
+					 "Left join Vote on Province.PrvID = Vote.PrvID " + 
+					 "Where Province.PrvID = :PrvID";
 		
-		List<ProvinceDistrictVote> districtProvinceList = namedParameterJdbcTemplate.query(sql, new BeanPropertyRowMapper<ProvinceDistrictVote>(ProvinceDistrictVote.class));
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("PrvID", provinceId);
+		
+		List<ProvinceDistrictVote> districtProvinceList = new ArrayList<ProvinceDistrictVote>();
+		
+		try {
+			districtProvinceList = namedParameterJdbcTemplate.query(sql, paramMap, new BeanPropertyRowMapper<ProvinceDistrictVote>(ProvinceDistrictVote.class));
+		} catch (Exception e) {
+			System.out.println("catch - getNotApprovedDistrictsByProvince() -> " + e.toString());
+		}
 
 		ArrayList<Integer> notApprovedDistrictList = new ArrayList<>();
 		
@@ -101,17 +145,27 @@ public class DashboardDaoImpl extends AbsCorDao implements DashboardDao {
 	
 	@Override
 	public List<GetSummaryElectionPartyDistrictsModel> getSummaryElectionPartyDistricts(int provinceId) {
-		String sql = "select SUM_MHR_BY_PROVINCE.*,\r\n" + 
-				"        pty.ptyID as ptyID,\r\n" + 
-				"        pty.ptyName as ptyName,\r\n" + 
-				"        pty.Logo as Logo,\r\n" + 
-				"        pty.ptyAbbr as ptyAbbr\r\n" + 
-				"        FROM SUM_MHR_BY_PROVINCE\r\n" + 
-				"        INNER JOIN party as pty\r\n" + 
-				"                ON SUM_MHR_BY_PROVINCE.PtyID = pty.PtyID\r\n" + 
-				"        WHERE SUM_MHR_BY_PROVINCE.PrvID = "+provinceId+" \r\n" + 
-				"        ORDER BY SUM_MHR_BY_PROVINCE.mHR desc;";
-		List<GetSummaryElectionPartyDistrictsModel> SummaryElectionPartyDistricts = namedParameterJdbcTemplate.query(sql, new BeanPropertyRowMapper<GetSummaryElectionPartyDistrictsModel>(GetSummaryElectionPartyDistrictsModel.class));
-		return SummaryElectionPartyDistricts;
+		String sql = "Select SUM_MHR_BY_PROVINCE.*, " + 
+				"     pty.ptyID as ptyID, " + 
+				"     pty.ptyName as ptyName, " + 
+				"     pty.Logo as Logo, " + 
+				"     pty.ptyAbbr as ptyAbbr " + 
+				"     From SUM_MHR_BY_PROVINCE " + 
+				"     Inner Join party as pty on SUM_MHR_BY_PROVINCE.PtyID = pty.PtyID " + 
+				"     Where SUM_MHR_BY_PROVINCE.PrvID = :PrvID " + 
+				"     Order by SUM_MHR_BY_PROVINCE.mHR desc";
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("PrvID", provinceId);
+		
+		List<GetSummaryElectionPartyDistrictsModel> summaryElectionPartyDistricts = new ArrayList<GetSummaryElectionPartyDistrictsModel>();
+		
+		try {
+			summaryElectionPartyDistricts = namedParameterJdbcTemplate.query(sql, paramMap, new BeanPropertyRowMapper<GetSummaryElectionPartyDistrictsModel>(GetSummaryElectionPartyDistrictsModel.class));
+		} catch (Exception e) {
+			System.out.println("catch - getSummaryElectionPartyDistricts() -> " + e.toString());
+		}
+		
+		return summaryElectionPartyDistricts;
 	}
 }

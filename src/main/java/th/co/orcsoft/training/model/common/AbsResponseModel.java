@@ -1,45 +1,21 @@
 package th.co.orcsoft.training.model.common;
 
+import lombok.Data;
+
+@Data
 public abstract class AbsResponseModel {
 
-	private String statusCode;
-	private String statusDescEn;
-	private String statusDescTh;
+	private String descriptionEn;
+	private String descriptionTh;
 
 	public AbsResponseModel() {
-		this.statusCode = "0";
-		this.statusDescEn = "Success";
-		this.statusDescTh = "สำเร็จ";
+		this.descriptionEn = "";
+		this.descriptionTh = "";
 	}
 
-	public AbsResponseModel(String statusCode, String statusDescEn, String statusDescTh) {
+	public AbsResponseModel(String descriptionEn, String descriptionTh) {
 		super();
-		this.statusCode = statusCode;
-		this.statusDescEn = statusDescEn;
-		this.statusDescTh = statusDescTh;
-	}
-
-	public String getStatusCode() {
-		return statusCode;
-	}
-
-	public void setStatusCode(String statusCode) {
-		this.statusCode = statusCode;
-	}
-
-	public String getStatusDescEn() {
-		return statusDescEn;
-	}
-
-	public void setStatusDescEn(String statusDescEn) {
-		this.statusDescEn = statusDescEn;
-	}
-
-	public String getStatusDescTh() {
-		return statusDescTh;
-	}
-
-	public void setStatusDescTh(String statusDescTh) {
-		this.statusDescTh = statusDescTh;
+		this.descriptionEn = descriptionEn;
+		this.descriptionTh = descriptionTh;
 	}
 }

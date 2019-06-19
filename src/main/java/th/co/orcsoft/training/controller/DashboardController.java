@@ -8,29 +8,22 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import th.co.orcsoft.training.common.db.service.DashboardService;
-import th.co.orcsoft.training.common.db.service.PartyService;
 import th.co.orcsoft.training.controller.common.BaseController;
 import th.co.orcsoft.training.model.common.AbsResponseModel;
 import th.co.orcsoft.training.model.common.dashboard.response.GetAllRegions;
 import th.co.orcsoft.training.model.common.dashboard.response.GetAllNotApprovedDistricts;
 import th.co.orcsoft.training.model.common.dashboard.response.GetAllProvinces;
-import th.co.orcsoft.training.model.common.dashboard.response.GetAllRegions;
 import th.co.orcsoft.training.model.common.dashboard.response.GetElectionPartyDistricts;
 import th.co.orcsoft.training.model.common.dashboard.response.GetElectionPartyRegion;
 import th.co.orcsoft.training.model.common.dashboard.response.GetSummaryElectionPartyDistricts;
-import th.co.orcsoft.training.model.common.party.response.GetAllPartyResponse;
-import th.co.orcsoft.training.model.db.GetElectionPartyDistrictsModel;
-import th.co.orcsoft.training.model.db.GetElectionPartyRegionModel;
 import th.co.orcsoft.training.model.db.ProvinceModel;
 import th.co.orcsoft.training.model.db.RegionModel;
-import th.co.orcsoft.training.model.db.VoteModel;
 import java.util.ArrayList;
 
 @RestController
@@ -44,6 +37,10 @@ public class DashboardController extends BaseController {
 	@RequestMapping(value = "getProvinces", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody AbsResponseModel getProvinces(HttpServletRequest request, HttpServletResponse response) {
 		
+		if (isInvalidToken(request, response)) {
+			return null;
+		}
+		
 		List<ProvinceModel> provinces = dashboardService.getProvinces();
 
 		GetAllProvinces getAllProvinces = new GetAllProvinces();
@@ -54,6 +51,10 @@ public class DashboardController extends BaseController {
 	
 	@RequestMapping(value = "getRegions", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody AbsResponseModel getRegions(HttpServletRequest request, HttpServletResponse response) {
+		
+		if (isInvalidToken(request, response)) {
+			return null;
+		}
 		
 		List<RegionModel> regions = dashboardService.getRegions();
 
@@ -66,9 +67,12 @@ public class DashboardController extends BaseController {
 	@RequestMapping(value = "getElectionPartyDistricts", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody GetElectionPartyDistricts getElectionPartyDistricts(int provinceId, HttpServletRequest request, HttpServletResponse response) {
 		
-		int userId = this.getUserIdByHeader(request);
+		if (isInvalidToken(request, response)) {
+			return null;
+		}
+		
 		GetElectionPartyDistricts electionPartyDistricts = new GetElectionPartyDistricts();
-		electionPartyDistricts.setGetElectionPartyDistrictsList(dashboardService.getElectionPartyDistricts(provinceId));
+		electionPartyDistricts.setElectionPartyDistrictsList(dashboardService.getElectionPartyDistricts(provinceId));
 		
 		return electionPartyDistricts;
 	}
@@ -76,15 +80,22 @@ public class DashboardController extends BaseController {
 	@RequestMapping(value = "getElectionPartyRegion", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody GetElectionPartyRegion getElectionPartyRegion(int regionId, HttpServletRequest request, HttpServletResponse response) {
 		
-		int userId = this.getUserIdByHeader(request);
+		if (isInvalidToken(request, response)) {
+			return null;
+		}
+		
 		GetElectionPartyRegion electionPartyRegion = new GetElectionPartyRegion();
-		electionPartyRegion.setGetElectionPartyRegionList(dashboardService.getElectionPartyRegion(regionId));
+		electionPartyRegion.setElectionPartyRegionList(dashboardService.getElectionPartyRegion(regionId));
 		 
 		return electionPartyRegion;
 	}
 	
 	@RequestMapping(value = "getNotApprovedDistrictsByProvince", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody AbsResponseModel getNotApprovedDistrictsByProvince(int provinceId, HttpServletRequest request, HttpServletResponse response) {
+		
+		if (isInvalidToken(request, response)) {
+			return null;
+		}
 		
 		GetAllNotApprovedDistricts getAllNotApprovedDistricts = new GetAllNotApprovedDistricts();
 		ArrayList<Integer> notApprovedDistrictList = dashboardService.getNotApprovedDistrictsByProvince(provinceId);
@@ -96,9 +107,12 @@ public class DashboardController extends BaseController {
 	@RequestMapping(value = "getSummaryElectionPartyDistricts", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody GetSummaryElectionPartyDistricts getSummaryElectionPartyDistricts(int provinceId, HttpServletRequest request, HttpServletResponse response) {
 		
-		int userId = this.getUserIdByHeader(request);
+		if (isInvalidToken(request, response)) {
+			return null;
+		}
+
 		GetSummaryElectionPartyDistricts summaryElectionPartyDistricts = new GetSummaryElectionPartyDistricts();
-		summaryElectionPartyDistricts.setGetSummaryElectionPartyDistricts(dashboardService.getSummaryElectionPartyDistricts(provinceId));	 
+		summaryElectionPartyDistricts.setSummaryElectionPartyDistrictsList(dashboardService.getSummaryElectionPartyDistricts(provinceId));	 
 		return summaryElectionPartyDistricts;
 	}
 

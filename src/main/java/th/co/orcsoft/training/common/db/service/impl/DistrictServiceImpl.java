@@ -45,4 +45,10 @@ public class DistrictServiceImpl implements DistrictService {
 		return result;
 	}
 
+	@Override
+	public List<VoteModel> getResultRequestedConfirmations() {
+		List<VoteModel> result = districtDao.getResultRequestedConfirmations();
+		return result;
+	}
+
 }
