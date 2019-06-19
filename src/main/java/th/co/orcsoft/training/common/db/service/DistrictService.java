@@ -10,4 +10,5 @@ public interface DistrictService {
 	public void createElectionDistrict(int prvId, int distNum, int pty1Id, int pty1Vote, int pty2Id, int pty2Vote, int pty3Id, int pty3Vote, double badVote, double voteNo, String updBy);
 	public void requestToModifiedElectionResult(int districtId, String updBy);
 	public List<VoteModel> getResultRequestModifications();
+	public List<VoteModel> getResultRequestedConfirmations();
 }

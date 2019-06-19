@@ -91,4 +91,15 @@ public class DistrictController extends BaseController {
 
 		return getResultRequestedModifications;
 	}
+	
+	@RequestMapping(value = "getResultRequestedConfirmations", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
+	public @ResponseBody AbsResponseModel getRequestedConfirmations(HttpServletRequest request, HttpServletResponse response) {
+
+		
+		GetResultRequestedModiResponse getResultRequestedModifications = new GetResultRequestedModiResponse();
+		List<VoteModel> result = districtService.getResultRequestedConfirmations();
+		getResultRequestedModifications.setVoteList(result);
+
+		return getResultRequestedModifications;
+	}
 }

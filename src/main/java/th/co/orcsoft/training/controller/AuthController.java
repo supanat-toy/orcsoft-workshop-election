@@ -39,8 +39,15 @@ public class AuthController extends BaseController {
 		GetAuthorization getAuthorization = new GetAuthorization();
 		
 		UsersModel user = authService.login(requestAuthorization.getUsername(), requestAuthorization.getPassword());
-		getAuthorization.setUser(user);
-		return getAuthorization;
+		
+		if (user == null) {
+			response.setStatus(400, "User not found");
+			return null;
+		} else {
+			getAuthorization.setUser(user);
+			return getAuthorization;
+		}
+		
 	}
 	
 	@RequestMapping(value = "getProfile", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
