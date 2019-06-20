@@ -7,7 +7,7 @@ import th.co.orcsoft.training.model.common.AbsResponseModel;
 import th.co.orcsoft.training.model.db.RegionModel;
 
 @Data
-public class GetAllRegions extends AbsResponseModel {
+public class AllRegionsResponse extends AbsResponseModel {
 
 	private List<RegionModel> regionList;
 }

@@ -15,8 +15,7 @@ public class AuthServiceImpl implements AuthService {
 	
 	@Override
 	public UsersModel login(String username, String password) {
-		UsersModel user = authDao.login(username, password);
-		return user;
+		return authDao.login(username, password);
 	}
 
 	@Override

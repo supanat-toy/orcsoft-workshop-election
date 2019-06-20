@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class BaseController {
 	
-	static String token = "toyza";
+	protected String token = "toyza";
 	
 	public int getUserIdByHeader(HttpServletRequest request) {
 		return Integer.parseInt(request.getHeader("userId"));

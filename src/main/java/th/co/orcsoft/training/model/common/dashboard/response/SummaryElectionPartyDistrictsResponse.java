@@ -7,7 +7,7 @@ import th.co.orcsoft.training.model.db.GetElectionPartyDistrictsModel;
 import th.co.orcsoft.training.model.db.GetSummaryElectionPartyDistrictsModel;
 
 @Data
-public class GetSummaryElectionPartyDistricts {
+public class SummaryElectionPartyDistrictsResponse {
 	
 	private List<GetSummaryElectionPartyDistrictsModel> SummaryElectionPartyDistrictsList;
 	

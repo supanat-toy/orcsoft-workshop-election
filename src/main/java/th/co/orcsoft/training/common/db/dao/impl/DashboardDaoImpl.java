@@ -20,34 +20,6 @@ import th.co.orcsoft.training.model.db.RegionModel;
 public class DashboardDaoImpl extends AbsCorDao implements DashboardDao {
 
 	@Override
-	public List<ProvinceModel> getProvinces() {
-		String sql = "Select * From Province";
-		List<ProvinceModel> provinces = new ArrayList<ProvinceModel>();
-		
-		try {
-			provinces = namedParameterJdbcTemplate.query(sql, new BeanPropertyRowMapper<ProvinceModel>(ProvinceModel.class));
-		} catch (Exception e) {
-			System.out.println("catch - getProvinces() -> " + e.toString());
-		}
-		
-		return provinces;
-	}
-
-	@Override
-	public List<RegionModel> getRegions() {
-		String sql = "Select * From Region";
-		List<RegionModel> regions = new ArrayList<RegionModel>();
-		
-		try {
-			regions = namedParameterJdbcTemplate.query(sql, new BeanPropertyRowMapper<RegionModel>(RegionModel.class));
-		} catch (Exception e) {
-			System.out.println("catch - getRegions() -> " + e.toString());
-		}
-		
-		return regions;
-	}
-
-	@Override
 	public List<GetElectionPartyDistrictsModel> getElectionPartyDistricts(int provinceId) {
 		String sql = "Select vote.*, " + 
 				"     pty1.ptyName as pty1_Name, " + 
@@ -61,7 +33,7 @@ public class DashboardDaoImpl extends AbsCorDao implements DashboardDao {
 				"     Inner Join party as pty2 on vote.Pty2_ID = pty2.PtyID " + 
 				"     Inner Join party as pty3 on vote.Pty3_ID = pty3.PtyID " + 
 				"     Where vote.PrvID = :PrvID and AprvFlag = :AprvFlag " + 
-				"     Order by vote.DistNum;";
+				"     Order by vote.DistNum";
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("PrvID", provinceId);
@@ -101,46 +73,6 @@ public class DashboardDaoImpl extends AbsCorDao implements DashboardDao {
 		}
 		
 		return electionPartyRegion;
-	}
-
-	@Override
-	public ArrayList<Integer> getNotApprovedDistrictsByProvince(int provinceId) {
-		String sql = "Select Province.PrvID as provinceId, Province.numDist as numberAllDistricts, Vote.DistNum as voteDistrictNumber " + 
-					 "From Province " + 
-					 "Left join Vote on Province.PrvID = Vote.PrvID " + 
-					 "Where Province.PrvID = :PrvID";
-		
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("PrvID", provinceId);
-		
-		List<ProvinceDistrictVote> districtProvinceList = new ArrayList<ProvinceDistrictVote>();
-		
-		try {
-			districtProvinceList = namedParameterJdbcTemplate.query(sql, paramMap, new BeanPropertyRowMapper<ProvinceDistrictVote>(ProvinceDistrictVote.class));
-		} catch (Exception e) {
-			System.out.println("catch - getNotApprovedDistrictsByProvince() -> " + e.toString());
-		}
-
-		ArrayList<Integer> notApprovedDistrictList = new ArrayList<>();
-		
-		if (districtProvinceList.size() > 0) {	
-			ArrayList<Integer> approvedDistrictList = new ArrayList<>();
-			for (ProvinceDistrictVote value: districtProvinceList) {
-				Integer voteDistrictNumber = value.getVoteDistrictNumber();
-				if (voteDistrictNumber != null) {
-					approvedDistrictList.add(voteDistrictNumber);
-				}
-			}
-			
-			int numberAllDistricts = districtProvinceList.get(0).getNumberAllDistricts();
-			for (int i = 1; i <= numberAllDistricts; i++) {
-				if (!approvedDistrictList.contains(i)) {
-					notApprovedDistrictList.add(i);
-				}
-			}
-		}
-		
-		return notApprovedDistrictList;
 	}
 	
 	@Override

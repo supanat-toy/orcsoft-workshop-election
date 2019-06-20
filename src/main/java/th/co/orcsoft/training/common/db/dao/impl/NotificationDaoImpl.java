@@ -19,7 +19,7 @@ public class NotificationDaoImpl extends AbsCorDao implements NotificationDao {
 	public List<NotificationModel> getNotificationList(boolean isOfficer) {
 		UserRoleEnum userRoleEnum = isOfficer ? UserRoleEnum.officer : UserRoleEnum.center;
 		
-		String sql = "Select * From notification Where RespPosn = :RespPosn";
+		String sql = "Select * From notification Where RespPosn = :RespPosn Order by creDTM desc";
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("RespPosn", userRoleEnum.getValue());

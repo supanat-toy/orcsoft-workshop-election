@@ -1,5 +1,7 @@
 package th.co.orcsoft.training.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,27 +15,28 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import th.co.orcsoft.training.common.db.service.AuthService;
-import th.co.orcsoft.training.common.db.service.CenterPointService;
+import th.co.orcsoft.training.common.db.service.CenterService;
 import th.co.orcsoft.training.controller.common.BaseController;
 import th.co.orcsoft.training.model.common.AbsResponseModel;
 import th.co.orcsoft.training.model.common.center.request.RequestedConfirmation;
 import th.co.orcsoft.training.model.common.center.request.RequestedModification;
-import th.co.orcsoft.training.model.common.center.response.GetConfirmations;
-import th.co.orcsoft.training.model.common.center.response.GetModifications;
+import th.co.orcsoft.training.model.common.center.response.RequestedApprovalsResponse;
+import th.co.orcsoft.training.model.common.center.response.RequestedModificationsResponse;
 import th.co.orcsoft.training.model.db.UsersModel;
+import th.co.orcsoft.training.model.db.VoteModel;
 
 @RestController
-@RequestMapping(value = "/api/centerpoint")
+@RequestMapping(value = "/api/center")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class CenterPointController extends BaseController {
+public class CenterController extends BaseController {
 
 	@Autowired
-	private CenterPointService centerPointService;
+	private CenterService centerService;
 
 	@Autowired
 	private AuthService authService;
 
-	@RequestMapping(value = "getRequestedConfirmations", produces = {
+	@RequestMapping(value = "getRequestedApprovals", produces = {
 			MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody AbsResponseModel getRequestedConfirmations(HttpServletRequest request,
 			HttpServletResponse response) {
@@ -42,10 +45,11 @@ public class CenterPointController extends BaseController {
 			return null;
 		}
 		
-		GetConfirmations getConfirmations = new GetConfirmations();
-		getConfirmations.setListRequestCon(centerPointService.getRequestedConfirmations());
+		RequestedApprovalsResponse requestedApprovalsResponse = new RequestedApprovalsResponse();
+		List<VoteModel> requestApprovals = centerService.getRequestedApprovals();
+		requestedApprovalsResponse.setListRequestCon(requestApprovals);
 
-		return getConfirmations;
+		return requestedApprovalsResponse;
 	}
 
 	@RequestMapping(value = "getRequestedModifications", produces = {
@@ -57,14 +61,14 @@ public class CenterPointController extends BaseController {
 			return null;
 		}
 		
-		GetModifications getModifications = new GetModifications();
-		getModifications.setListRequestModi(centerPointService.getRequestedModifications());
-		return getModifications;
+		RequestedModificationsResponse requestedModificationsResponse = new RequestedModificationsResponse();
+		requestedModificationsResponse.setListRequestModi(centerService.getRequestedModifications());
+		return requestedModificationsResponse;
 	}
 
-	@RequestMapping(value = "replyRequestedConfirmation", produces = {
+	@RequestMapping(value = "replyRequestedApproval", produces = {
 			MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
-	public @ResponseBody AbsResponseModel replyRequestedConfirmation(@RequestBody RequestedConfirmation requestBody,
+	public @ResponseBody AbsResponseModel replyRequestedApproval(@RequestBody RequestedConfirmation requestBody,
 			HttpServletRequest request, HttpServletResponse response) {
 
 		if (isInvalidToken(request, response)) {
@@ -73,7 +77,12 @@ public class CenterPointController extends BaseController {
 		
 		int userId = this.getUserIdByHeader(request);
 		UsersModel userProfile = this.authService.getUserProfile(userId);
-		centerPointService.replyRequestedConfirmations(requestBody.getDistrictId(), requestBody.isApproved(), userProfile.getLogin());
+		boolean isSucceed = centerService.replyRequestedApproval(requestBody.getDistrictId(), requestBody.isApproved(), userProfile.getLogin());
+		
+		if (!isSucceed) {
+			response.setStatus(400);
+		}
+		
 		return null;
 	}
 	
@@ -88,7 +97,12 @@ public class CenterPointController extends BaseController {
 		
 		int userId = this.getUserIdByHeader(request);
 		UsersModel userProfile = this.authService.getUserProfile(userId);
-		centerPointService.replyRequestedModifications(requestBody.getDistrictId(), requestBody.isApproved(), userProfile.getLogin());
+		boolean isSucceed = centerService.replyRequestedModification(requestBody.getDistrictId(), requestBody.isApproved(), userProfile.getLogin());
+		
+		if (!isSucceed) {
+			response.setStatus(400);
+		}
+		
 		return null;
 	}
 	

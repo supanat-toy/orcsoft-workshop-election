@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import lombok.Data;
 
 @Data
-public class GetAllNotApprovedDistricts extends AbsResponseModel {
+public class NotCreatedDistrictsResponse extends AbsResponseModel {
 	
 	private ArrayList<Integer> notApprovedDistrictList;
 

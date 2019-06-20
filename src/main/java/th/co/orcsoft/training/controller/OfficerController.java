@@ -1,5 +1,6 @@
 package th.co.orcsoft.training.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,23 +16,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import th.co.orcsoft.training.common.db.service.AuthService;
-import th.co.orcsoft.training.common.db.service.DistrictService;
+import th.co.orcsoft.training.common.db.service.OfficerService;
 import th.co.orcsoft.training.controller.common.BaseController;
 import th.co.orcsoft.training.model.common.AbsResponseModel;
+import th.co.orcsoft.training.model.common.dashboard.response.NotCreatedDistrictsResponse;
 import th.co.orcsoft.training.model.common.district.request.RequestCreateNewDistrictElection;
 import th.co.orcsoft.training.model.common.district.request.RequestToModiRequest;
-import th.co.orcsoft.training.model.common.district.response.GetElectionDistricts;
-import th.co.orcsoft.training.model.common.district.response.GetResultRequestedModiResponse;
+import th.co.orcsoft.training.model.common.district.response.ElectionDistrictsResponse;
+import th.co.orcsoft.training.model.common.district.response.RequestedResponse;
 import th.co.orcsoft.training.model.db.UsersModel;
 import th.co.orcsoft.training.model.db.VoteModel;
 
 @RestController
-@RequestMapping(value = "/api/district")
+@RequestMapping(value = "/api/officer")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class DistrictController extends BaseController {
+public class OfficerController extends BaseController {
 
 	@Autowired
-	private DistrictService districtService;
+	private OfficerService officerService;
 	
 	@Autowired
 	private AuthService authService;
@@ -45,9 +47,13 @@ public class DistrictController extends BaseController {
 		
 		int userId = this.getUserIdByHeader(request);
 		UsersModel userProfile = authService.getUserProfile(userId);
-		districtService.createElectionDistrict(requestBody.getPrvId(), requestBody.getDistNum(), requestBody.getPty1Id(), requestBody.getPty1Vote(), requestBody.getPty2Id(), requestBody.getPty2Vote(), requestBody.getPty3Id(), requestBody.getPty3Vote(), requestBody.getBadVote(), requestBody.getVoteNo(), userProfile.getLogin());
+		boolean isSucceed = officerService.createElectionDistrict(requestBody.getPrvId(), requestBody.getDistNum(), requestBody.getPty1Id(), requestBody.getPty1Vote(), requestBody.getPty2Id(), requestBody.getPty2Vote(), requestBody.getPty3Id(), requestBody.getPty3Vote(), requestBody.getBadVote(), requestBody.getVoteNo(), userProfile.getLogin());
 
-		return new AbsResponseModel() {};
+		if (!isSucceed) {
+			response.setStatus(400);
+		}
+		
+		return null;
 	}
 	
 	@RequestMapping(value = "updateElectionDistrict", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
@@ -59,8 +65,12 @@ public class DistrictController extends BaseController {
 		
 		int userId = this.getUserIdByHeader(request);
 		UsersModel userProfile = authService.getUserProfile(userId);
-		districtService.updateElectionDistrict(requestBody.getPrvId(), requestBody.getDistNum(), requestBody.getPty1Id(), requestBody.getPty1Vote(), requestBody.getPty2Id(), requestBody.getPty2Vote(), requestBody.getPty3Id(), requestBody.getPty3Vote(), requestBody.getBadVote(), requestBody.getVoteNo(), userProfile.getLogin());
+		boolean isSucceed = officerService.updateElectionDistrict(requestBody.getPrvId(), requestBody.getDistNum(), requestBody.getPty1Id(), requestBody.getPty1Vote(), requestBody.getPty2Id(), requestBody.getPty2Vote(), requestBody.getPty3Id(), requestBody.getPty3Vote(), requestBody.getBadVote(), requestBody.getVoteNo(), userProfile.getLogin());
 
+		if (!isSucceed) {
+			response.setStatus(400);
+		}
+		
 		return null;
 	}
 	
@@ -71,15 +81,15 @@ public class DistrictController extends BaseController {
 			return null;
 		}
 		
-		VoteModel electionPartyDistricts = districtService.getElectionDistrictInfo(districtId);
+		VoteModel electionPartyDistricts = officerService.getElectionDistrictInfo(districtId);
 		
 		if (electionPartyDistricts == null) {
 			response.setStatus(400, "Data not found");
 		}
 		
-		GetElectionDistricts getElectionDistricts = new GetElectionDistricts();
-		getElectionDistricts.setVoteModel(electionPartyDistricts);
-		return getElectionDistricts;
+		ElectionDistrictsResponse electionDistrictsResponse = new ElectionDistrictsResponse();
+		electionDistrictsResponse.setVoteModel(electionPartyDistricts);
+		return electionDistrictsResponse;
 	}
 	
 	@RequestMapping(value = "requestToModifiedElectionResult", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
@@ -93,35 +103,54 @@ public class DistrictController extends BaseController {
 		UsersModel userProfile = authService.getUserProfile(userId);
 		String updBy = userProfile.getLogin();
 		
-		districtService.requestToModifiedElectionResult(requestBody.getDistrictId() , updBy);
+		boolean isSucceed = officerService.requestToModifiedElectionResult(requestBody.getDistrictId() , updBy);
 
+		if (!isSucceed) {
+			response.setStatus(400);
+		}
+		
 		return null;
 	}
 	
-	@RequestMapping(value = "getResultRequestedModifications", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
+	@RequestMapping(value = "getApprovedModifications", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody AbsResponseModel getResultRequestedModifications(HttpServletRequest request, HttpServletResponse response) {
 
 		if (isInvalidToken(request, response)) {
 			return null;
 		}
 		
-		GetResultRequestedModiResponse getResultRequestedModifications = new GetResultRequestedModiResponse();
-		getResultRequestedModifications.setVoteList(districtService.getResultRequestModifications());
+		RequestedResponse requestedResponse = new RequestedResponse();
+		List<VoteModel> result = officerService.getApprovedModifications();
+		requestedResponse.setVoteList(result);
 
-		return getResultRequestedModifications;
+		return requestedResponse;
 	}
 	
-	@RequestMapping(value = "getResultRequestedConfirmations", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
+	@RequestMapping(value = "getPendingRequestedApproval", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody AbsResponseModel getRequestedConfirmations(HttpServletRequest request, HttpServletResponse response) {
 
 		if (isInvalidToken(request, response)) {
 			return null;
 		}
 		
-		GetResultRequestedModiResponse getResultRequestedModifications = new GetResultRequestedModiResponse();
-		List<VoteModel> result = districtService.getResultRequestedConfirmations();
-		getResultRequestedModifications.setVoteList(result);
+		RequestedResponse requestedResponse = new RequestedResponse();
+		List<VoteModel> result = officerService.getPendingRequestedApproval();
+		requestedResponse.setVoteList(result);
 
-		return getResultRequestedModifications;
+		return requestedResponse;
+	}
+	
+	@RequestMapping(value = "getNotCreatedDistrictsByProvince", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
+	public @ResponseBody AbsResponseModel getNotApprovedDistrictsByProvince(int provinceId, HttpServletRequest request, HttpServletResponse response) {
+		
+		if (isInvalidToken(request, response)) {
+			return null;
+		}
+		
+		NotCreatedDistrictsResponse notCreatedDistrictsResponse = new NotCreatedDistrictsResponse();
+		ArrayList<Integer> notApprovedDistrictList = officerService.getNotApprovedDistrictsByProvince(provinceId);
+		notCreatedDistrictsResponse.setNotApprovedDistrictList(notApprovedDistrictList);
+		
+		return notCreatedDistrictsResponse;
 	}
 }

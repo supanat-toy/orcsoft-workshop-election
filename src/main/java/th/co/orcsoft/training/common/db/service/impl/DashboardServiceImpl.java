@@ -19,16 +19,6 @@ public class DashboardServiceImpl implements DashboardService {
 
 	@Autowired
 	private DashboardDao dashboardDao;
-	
-	@Override
-	public List<ProvinceModel> getProvinces() {
-		return dashboardDao.getProvinces();
-	}
-
-	@Override
-	public List<RegionModel> getRegions() {
-		return dashboardDao.getRegions();
-	}
 
 	@Override
 	public List<GetElectionPartyDistrictsModel> getElectionPartyDistricts(int provinceId) {
@@ -43,13 +33,6 @@ public class DashboardServiceImpl implements DashboardService {
 	@Override
 	public List<GetSummaryElectionPartyDistrictsModel> getSummaryElectionPartyDistricts(int provinceId) {
 		return dashboardDao.getSummaryElectionPartyDistricts(provinceId);
-	}
-	
-
-
-	@Override
-	public ArrayList<Integer> getNotApprovedDistrictsByProvince(int provinceId) {
-		return dashboardDao.getNotApprovedDistrictsByProvince(provinceId);
 	}
 
 }

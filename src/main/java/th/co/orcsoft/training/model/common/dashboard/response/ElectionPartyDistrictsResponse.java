@@ -6,7 +6,7 @@ import lombok.Data;
 import th.co.orcsoft.training.model.db.GetElectionPartyDistrictsModel;
 
 @Data
-public class GetElectionPartyDistricts {
+public class ElectionPartyDistrictsResponse {
 	
 	private List<GetElectionPartyDistrictsModel> ElectionPartyDistrictsList;
 	

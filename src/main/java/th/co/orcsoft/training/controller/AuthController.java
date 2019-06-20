@@ -39,6 +39,7 @@ public class AuthController extends BaseController {
 			return null;
 		} else {
 			getAuthorization.setUser(user);
+			getAuthorization.setToken(this.token);
 			return getAuthorization;
 		}
 		
@@ -55,7 +56,13 @@ public class AuthController extends BaseController {
 		
 		int userId = this.getUserIdByHeader(request);
 		UsersModel user = authService.getUserProfile(userId);
-		getAuthorization.setUser(user);
-		return getAuthorization;
+		
+		if (user == null) {
+			response.setStatus(400, "User not found");
+			return null;
+		} else {
+			getAuthorization.setUser(user);
+			return getAuthorization;
+		}
 	}
 }

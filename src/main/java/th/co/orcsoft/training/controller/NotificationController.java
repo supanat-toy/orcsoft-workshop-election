@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import th.co.orcsoft.training.common.db.service.NotificationService;
 import th.co.orcsoft.training.controller.common.BaseController;
 import th.co.orcsoft.training.model.common.AbsResponseModel;
-import th.co.orcsoft.training.model.common.notification.response.GetFeedNotifications;
+import th.co.orcsoft.training.model.common.notification.response.FeedNotificationsResponse;
 
 @RestController
 @RequestMapping(value = "/api/notification")
@@ -34,9 +34,9 @@ public class NotificationController extends BaseController {
 		
 		boolean isOfficer = this.isOfficerByHeader(request);
 		
-		GetFeedNotifications getFeedNotifications = new GetFeedNotifications();
-		getFeedNotifications.setNotifications(notificationService.getNotificationList(isOfficer));
+		FeedNotificationsResponse feedNotificationsResponse = new FeedNotificationsResponse();
+		feedNotificationsResponse.setNotifications(notificationService.getNotificationList(isOfficer));
 
-		return getFeedNotifications;
+		return feedNotificationsResponse;
 	}
 }

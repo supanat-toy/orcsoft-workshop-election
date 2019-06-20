@@ -7,7 +7,7 @@ import th.co.orcsoft.training.model.common.AbsResponseModel;
 import th.co.orcsoft.training.model.db.NotificationModel;
 
 @Data
-public class GetFeedNotifications extends AbsResponseModel {
+public class FeedNotificationsResponse extends AbsResponseModel {
 
 	private List<NotificationModel> notifications;
 }

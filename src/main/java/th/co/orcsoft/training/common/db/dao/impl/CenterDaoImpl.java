@@ -8,16 +8,16 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
 import th.co.orcsoft.training.common.db.dao.AbsCorDao;
-import th.co.orcsoft.training.common.db.dao.CenterPointDao;
+import th.co.orcsoft.training.common.db.dao.CenterDao;
 import th.co.orcsoft.training.model.db.VoteModel;
 
 @Repository
-public class CenterPointDaoImpl extends AbsCorDao implements CenterPointDao {
+public class CenterDaoImpl extends AbsCorDao implements CenterDao {
 
 	
 	@Override
-	public List<VoteModel> getRequestedConfirmations() {
-		String sql = "SELECT * FROM Vote WHERE AprvFlag is null AND UpdFlag = :UpdFlag AND UpdAprvFlag is null ";
+	public List<VoteModel> getRequestedApprovals() {
+		String sql = "Select * From Vote Where AprvFlag is null and UpdFlag = :UpdFlag and UpdAprvFlag is null Order by updDTM";
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("UpdFlag", true);
@@ -27,7 +27,7 @@ public class CenterPointDaoImpl extends AbsCorDao implements CenterPointDao {
 		try {
 			requestedConfirmations = namedParameterJdbcTemplate.query(sql, paramMap, new BeanPropertyRowMapper<VoteModel>(VoteModel.class));
 		} catch (Exception e) {
-			System.out.println("catch - getRequestedConfirmations() -> " + e.toString());
+			System.out.println("catch - getRequestedApprovals() -> " + e.toString());
 		}
 		
 		return requestedConfirmations;
@@ -35,7 +35,7 @@ public class CenterPointDaoImpl extends AbsCorDao implements CenterPointDao {
 
 	@Override
 	public List<VoteModel> getRequestedModifications() {
-		String sql = "SELECT * FROM VOTE WHERE AprvFlag = :AprvFlag AND UpdFlag = :UpdFlag AND UpdAprvFlag is null";
+		String sql = "Select * From VOTE Where AprvFlag = :AprvFlag and UpdFlag = :UpdFlag and UpdAprvFlag is null Order by updDTM";
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("AprvFlag", true);
@@ -52,9 +52,9 @@ public class CenterPointDaoImpl extends AbsCorDao implements CenterPointDao {
 	}
 
 	@Override
-	public boolean replyRequestedConfirmations(int districtId, boolean isApproved, String approvedBy) {
+	public boolean replyRequestedApproval(int districtId, boolean isApproved, String approvedBy) {
 		
-		String sql = "UPDATE VOTE SET AprvFlag = :AprvFlag , AprvBy = :AprvBy WHERE DistID = :DistID";
+		String sql = "Update Vote Set AprvFlag = :AprvFlag, AprvBy = :AprvBy Where DistID = :DistID";
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("AprvFlag", isApproved);
@@ -64,21 +64,21 @@ public class CenterPointDaoImpl extends AbsCorDao implements CenterPointDao {
 		try {
 			int count = namedParameterJdbcTemplate.update(sql, paramMap); 
 			if (count == 0) {
-				System.out.println("failed - replyRequestedConfirmations() for districtId = " + districtId + ", isApproved = " + isApproved);
+				System.out.println("failed - replyRequestedApproval() for districtId = " + districtId + ", isApproved = " + isApproved);
 				return false;
 			} else {
 				return true;
 			}
 		} catch (Exception e) {
-			System.out.println("catch - replyRequestedConfirmations() -> " + e.toString());
+			System.out.println("catch - replyRequestedApproval() -> " + e.toString());
 		}
 		return false;
 	}
 
 	@Override
-	public boolean replyRequestedModifications(int districtId, boolean isApproved,String updatedApprovedBy) {
+	public boolean replyRequestedModification(int districtId, boolean isApproved,String updatedApprovedBy) {
 		
-		String sql = "UPDATE VOTE SET UpdAprvBy = :AprvBy WHERE DistID = :DistID";
+		String sql = "Update Vote Set UpdAprvFlag = :UpdAprvFlag, UpdAprvBy = :UpdAprvBy Where DistID = :DistID";
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("UpdAprvFlag", isApproved);

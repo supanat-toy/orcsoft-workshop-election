@@ -4,12 +4,10 @@ import java.util.List;
 
 import lombok.Data;
 import th.co.orcsoft.training.model.common.AbsResponseModel;
-import th.co.orcsoft.training.model.common.center.request.RequestedConfirmation;
 import th.co.orcsoft.training.model.db.VoteModel;
 
 @Data
-public class GetConfirmations extends AbsResponseModel{
-	 
-	private List<VoteModel> listRequestCon;
-
+public class RequestedModificationsResponse extends AbsResponseModel {
+	
+	private List<VoteModel> listRequestModi;
 }
