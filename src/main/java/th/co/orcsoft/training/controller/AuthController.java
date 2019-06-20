@@ -65,4 +65,10 @@ public class AuthController extends BaseController {
 			return getAuthorization;
 		}
 	}
+	
+	@RequestMapping(value = "getTest", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
+	public @ResponseBody String getTest(HttpServletRequest request, HttpServletResponse response) {
+		
+		return "Test";
+	}
 }
