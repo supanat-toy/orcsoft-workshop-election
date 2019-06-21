@@ -74,21 +74,21 @@ public class OfficerController extends BaseController {
 		return null;
 	}
 	
-	@RequestMapping(value = "getElectionDistricts", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
+	@RequestMapping(value = "getElectionDistrictInfo", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody AbsResponseModel getElectionDistricts(int districtId, HttpServletRequest request, HttpServletResponse response) {
 		
 		if (isInvalidToken(request, response)) {
 			return null;
 		}
 		
-		VoteModel electionPartyDistricts = officerService.getElectionDistrictInfo(districtId);
+		VoteModel electionPartyDistrict = officerService.getElectionDistrictInfo(districtId);
 		
-		if (electionPartyDistricts == null) {
+		if (electionPartyDistrict == null) {
 			response.setStatus(400, "Data not found");
 		}
 		
 		ElectionDistrictsResponse electionDistrictsResponse = new ElectionDistrictsResponse();
-		electionDistrictsResponse.setVoteModel(electionPartyDistricts);
+		electionDistrictsResponse.setVoteModel(electionPartyDistrict);
 		return electionDistrictsResponse;
 	}
 	
