@@ -126,7 +126,7 @@ public class OfficerController extends BaseController {
 		return requestedResponse;
 	}
 	
-	@RequestMapping(value = "getPendingRequestedApproval", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
+	@RequestMapping(value = "getPendingRequestedApprovals", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.GET)
 	public @ResponseBody AbsResponseModel getRequestedConfirmations(HttpServletRequest request, HttpServletResponse response) {
 
 		if (isInvalidToken(request, response)) {
